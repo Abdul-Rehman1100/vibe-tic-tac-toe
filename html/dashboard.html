@@ -1,0 +1,53 @@
+<section class="dashboard-view content-width" aria-labelledby="dash-heading">
+  <div class="dashboard-hero">
+    <div class="dashboard-greeting">
+      <p class="kicker">Player Command Center</p>
+      <h2 id="dash-heading">Welcome back to Vibe Arena</h2>
+      <p>Select your challenge level or resume your session matches.</p>
+    </div>
+    <a class="button button--primary" href="#game">▶ Play Now</a>
+  </div>
+
+  <div class="dashboard-stats-grid">
+    <div class="dash-stat-card">
+      <span class="stat-label">Total Matches</span>
+      <span class="stat-value" id="dash-total-matches">0</span>
+    </div>
+    <div class="dash-stat-card">
+      <span class="stat-label">Total Wins</span>
+      <span class="stat-value" id="dash-total-wins">0</span>
+    </div>
+    <div class="dash-stat-card">
+      <span class="stat-label">Win Rate</span>
+      <span class="stat-value" id="dash-win-rate">0%</span>
+    </div>
+  </div>
+
+  <div>
+    <p class="kicker">Quick Play Modes</p>
+    <h2>Choose Your Challenge</h2>
+  </div>
+
+  <div class="mode-cards-grid">
+    <article class="mode-card">
+      <div class="mode-card-icon">⚡</div>
+      <h3>Classic 3×3</h3>
+      <p>Fast, intense, standard Tic-Tac-Toe. Connect 3 in a row to win. Perfect against friends or our unbeatable Minimax bot.</p>
+      <button class="button button--ghost" type="button" data-action="quick-play" data-level="1" data-mode="single">Play Level 1</button>
+    </article>
+
+    <article class="mode-card">
+      <div class="mode-card-icon">🎯</div>
+      <h3>Tactical 4×4</h3>
+      <p>More space, deeper tactics. Requires 4 in a row to take the crown. Face our adaptive positional bot.</p>
+      <button class="button button--ghost" type="button" data-action="quick-play" data-level="2" data-mode="single">Play Level 2</button>
+    </article>
+
+    <article class="mode-card">
+      <div class="mode-card-icon">🔥</div>
+      <h3>Wild 5×5</h3>
+      <p>High complexity and vast possibilities. Connect 5 in a row to dominate the grid.</p>
+      <button class="button button--ghost" type="button" data-action="quick-play" data-level="3" data-mode="single">Play Level 3</button>
+    </article>
+  </div>
+</section>

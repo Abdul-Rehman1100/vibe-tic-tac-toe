@@ -1,0 +1,118 @@
+/* ==========================================================================
+   Dashboard View Styles (Menu / Post-Login Screen / Career Hub)
+   ========================================================================== */
+
+.dashboard-view {
+  padding: 1.5rem 0 3rem;
+  display: grid;
+  gap: 2rem;
+}
+
+.dashboard-hero {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+  padding: 2rem;
+  border-radius: var(--radius);
+  background: linear-gradient(135deg, #eeeaff, #fef4ed);
+  border: 1px solid var(--line);
+  box-shadow: var(--shadow);
+}
+
+.dashboard-greeting h2 {
+  margin: .3rem 0;
+  font-family: var(--font-display);
+  font-size: clamp(1.8rem, 3.5vw, 2.6rem);
+}
+
+.dashboard-greeting p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 1.05rem;
+}
+
+.dashboard-stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(13rem, 1fr));
+  gap: 1rem;
+}
+
+.dash-stat-card {
+  padding: 1.4rem;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 1.2rem;
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.04);
+  display: flex;
+  flex-direction: column;
+  gap: .4rem;
+}
+
+.dash-stat-card .stat-label {
+  font-size: .8rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: .08em;
+  color: var(--muted);
+}
+
+.dash-stat-card .stat-value {
+  font-family: var(--font-display);
+  font-size: 2.4rem;
+  line-height: 1;
+  color: var(--violet);
+}
+
+.mode-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+  gap: 1.25rem;
+}
+
+.mode-card {
+  padding: 1.6rem;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 1.3rem;
+  box-shadow: var(--shadow);
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  transition: transform .18s ease, border-color .18s ease;
+}
+
+.mode-card:hover {
+  transform: translateY(-3px);
+  border-color: var(--violet);
+}
+
+.mode-card-icon {
+  width: 3rem;
+  height: 3rem;
+  border-radius: .8rem;
+  background: var(--lavender);
+  display: grid;
+  place-items: center;
+  font-size: 1.5rem;
+}
+
+.mode-card h3 {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: 1.35rem;
+}
+
+.mode-card p {
+  margin: 0;
+  color: var(--muted);
+  font-size: .92rem;
+  flex-grow: 1;
+}
+
+.mode-card button {
+  font-family: var(--font-display);
+  letter-spacing: 0.03em;
+  font-size: 0.95rem;
+}

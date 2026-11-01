@@ -1,0 +1,133 @@
+<!-- ==========================================================================
+     DEDICATED GAME ROUTE: How It Works → Game Room → Scoreboard
+     ========================================================================== -->
+
+<!-- STEP 1: How It Works -->
+<section class="guide content-width" id="how-to-play" aria-labelledby="guide-heading">
+  <p class="kicker">How it works</p>
+  <h2 id="guide-heading" class="section-title">Start playing in three easy steps.</h2>
+  <div class="guide-grid">
+    <article>
+      <span class="step-number">1</span>
+      <h3>Choose players</h3>
+      <p>Select <strong>Me vs Bot</strong> to play O as the computer, then enter your X name. Select <strong>Two Players</strong> to enter both the X and O player names.</p>
+    </article>
+    <article>
+      <span class="step-number">2</span>
+      <h3>Set the challenge</h3>
+      <p>Choose Easy for a random bot or Strong for perfect classic 3×3 play. Then choose your level: 3×3 needs 3 in a row, 4×4 needs 4, and 5×5 needs 5.</p>
+    </article>
+    <article>
+      <span class="step-number">3</span>
+      <h3>Start and take turns</h3>
+      <p>Press <strong>Start game</strong>, then choose an empty square. X always starts. Against the bot, wait for its O move before selecting your next square.</p>
+    </article>
+  </div>
+</section>
+
+<!-- STEP 2: Game Room -->
+<section class="game-section content-width" id="game" aria-labelledby="game-heading">
+  <div class="section-heading">
+    <div>
+      <p class="kicker">Game room</p>
+      <h1 id="game-heading">Pick the vibe. Make your move.</h1>
+    </div>
+    <button class="button button--ghost" id="restart-button" type="button">↻ New round</button>
+  </div>
+
+  <div class="game-layout">
+    <div class="game-panel controls-panel">
+      <div class="control-group">
+        <label for="game-mode">Who’s playing?</label>
+        <select id="game-mode" name="game-mode">
+          <option value="single">Me vs Bot</option>
+          <option value="two-player">Two Players</option>
+        </select>
+      </div>
+
+      <fieldset class="player-names">
+        <legend>Player names</legend>
+        <div class="control-group">
+          <label for="player-x-name">X player</label>
+          <input id="player-x-name" name="player-x-name" type="text" maxlength="20" autocomplete="nickname" placeholder="Enter your name" value="Player X">
+        </div>
+        <div class="control-group" id="player-o-wrap" hidden>
+          <label for="player-o-name">O player</label>
+          <input id="player-o-name" name="player-o-name" type="text" maxlength="20" autocomplete="nickname" placeholder="Enter second player's name">
+        </div>
+      </fieldset>
+
+      <div class="control-group" id="difficulty-wrap">
+        <label for="bot-difficulty">Bot energy</label>
+        <select id="bot-difficulty" name="bot-difficulty">
+          <option value="easy">Easy — Random</option>
+          <option value="strong">Strong — Perfect on 3x3</option>
+        </select>
+      </div>
+
+      <div class="control-group">
+        <label for="game-level">Board level</label>
+        <select id="game-level" name="game-level">
+          <option value="1" selected>Level 1 — Classic 3×3</option>
+          <option value="2">Level 2 — Tactical 4×4</option>
+          <option value="3">Level 3 — Wild 5×5</option>
+        </select>
+      </div>
+
+      <div class="level-note" id="level-note">Connect 3 in a row to win.</div>
+      <button class="button button--primary" id="start-button" type="button">Start game</button>
+    </div>
+
+    <div class="game-panel board-panel">
+      <p class="game-status" id="game-status">Your turn — place an X.</p>
+      <p class="sr-only" id="live-region" aria-live="polite" aria-atomic="true"></p>
+      <div id="game-board" class="game-board" role="grid" aria-label="Tic-Tac-Toe board" style="--grid-size: 3;">
+        <button type="button" class="game-cell" data-index="0" role="gridcell" aria-rowindex="1" aria-colindex="1" aria-label="Row 1, column 1, empty"></button>
+        <button type="button" class="game-cell" data-index="1" role="gridcell" aria-rowindex="1" aria-colindex="2" aria-label="Row 1, column 2, empty"></button>
+        <button type="button" class="game-cell" data-index="2" role="gridcell" aria-rowindex="1" aria-colindex="3" aria-label="Row 1, column 3, empty"></button>
+        <button type="button" class="game-cell" data-index="3" role="gridcell" aria-rowindex="2" aria-colindex="1" aria-label="Row 2, column 1, empty"></button>
+        <button type="button" class="game-cell" data-index="4" role="gridcell" aria-rowindex="2" aria-colindex="2" aria-label="Row 2, column 2, empty"></button>
+        <button type="button" class="game-cell" data-index="5" role="gridcell" aria-rowindex="2" aria-colindex="3" aria-label="Row 2, column 3, empty"></button>
+        <button type="button" class="game-cell" data-index="6" role="gridcell" aria-rowindex="3" aria-colindex="1" aria-label="Row 3, column 1, empty"></button>
+        <button type="button" class="game-cell" data-index="7" role="gridcell" aria-rowindex="3" aria-colindex="2" aria-label="Row 3, column 2, empty"></button>
+        <button type="button" class="game-cell" data-index="8" role="gridcell" aria-rowindex="3" aria-colindex="3" aria-label="Row 3, column 3, empty"></button>
+      </div>
+      <p class="board-hint">You are <strong>X</strong>. The bot is <strong>O</strong>.</p>
+    </div>
+  </div>
+</section>
+
+<!-- STEP 3: Scoreboard -->
+<section class="scoreboard content-width" id="scoreboard" aria-labelledby="scoreboard-heading">
+  <div>
+    <p class="kicker">Session results</p>
+    <h2 id="scoreboard-heading">Scoreboard</h2>
+  </div>
+  <table>
+    <caption class="sr-only">Wins and draws from this browser session</caption>
+    <thead>
+      <tr>
+        <th scope="col">Player</th>
+        <th scope="col">Mark</th>
+        <th scope="col">Wins</th>
+        <th scope="col">Losses</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td id="score-x-name">Player X</td>
+        <td>X</td>
+        <td id="score-x-wins">0</td>
+        <td id="score-x-losses">0</td>
+      </tr>
+      <tr>
+        <td id="score-o-name">Bot</td>
+        <td>O</td>
+        <td id="score-o-wins">0</td>
+        <td id="score-o-losses">0</td>
+      </tr>
+    </tbody>
+  </table>
+  <p class="draw-count" id="draw-count">Draws: 0</p>
+  <button id="share-scorecard-btn" class="vibe-btn-secondary" type="button">Share Scorecard</button>
+</section>

@@ -1,0 +1,83 @@
+/* ==========================================================================
+   Login View Styles (Authentication / Player Setup Screen)
+   ========================================================================== */
+
+.login-view {
+  display: grid;
+  place-items: center;
+  padding: 2.5rem 0 3.5rem;
+  min-height: 60vh;
+}
+
+.login-card {
+  width: min(100%, 30rem);
+  padding: clamp(1.75rem, 4vw, 2.75rem);
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  display: grid;
+  gap: 1.5rem;
+}
+
+.login-header {
+  text-align: center;
+}
+
+.login-header h2 {
+  font-family: var(--font-display);
+  font-size: 2.2rem;
+  margin: .3rem 0;
+  color: var(--ink);
+}
+
+.login-header p {
+  color: var(--muted);
+  margin: 0;
+  font-size: .95rem;
+}
+
+.avatar-selector {
+  display: flex;
+  justify-content: center;
+  gap: .8rem;
+  margin-top: .5rem;
+}
+
+.avatar-option {
+  width: 3.2rem;
+  height: 3.2rem;
+  border-radius: 50%;
+  border: 2px solid var(--line);
+  background: var(--paper);
+  font-size: 1.4rem;
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  transition: transform .16s ease, border-color .16s ease, background .16s ease;
+}
+
+.avatar-option:hover,
+.avatar-option.is-selected {
+  border-color: var(--violet);
+  background: var(--lavender);
+  transform: scale(1.08);
+}
+
+.login-form {
+  display: grid;
+  gap: 1.2rem;
+}
+
+.login-actions {
+  display: grid;
+  gap: .75rem;
+  margin-top: .5rem;
+}
+
+.guest-note {
+  font-size: .8rem;
+  color: var(--muted);
+  text-align: center;
+  margin: 0;
+}

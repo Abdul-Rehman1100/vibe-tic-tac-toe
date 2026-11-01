@@ -5,149 +5,505 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="theme-color" content="#111827">
     <meta name="robots" content="index,follow">
-    <meta name="description" content="Play Tic-Tac-Toe online against a friend or computer. Choose easy or strong bot modes and progress through 3x3, 4x4, and 5x5 boards.">
-    <meta name="keywords" content="tic tac toe online, play tic tac toe, tic tac toe against computer, unbeatable tic tac toe, 4x4 tic tac toe, 5x5 tic tac toe">
+    <meta name="description" content="Vibe Games — Modern browser gaming platform featuring fast, zero-install retro and tactical games. Play Vibe Tic-Tac-Toe against smart AI or friends.">
+    <meta name="keywords" content="vibe games, tic tac toe online, play tic tac toe, 3d browser games, unbeatable tic tac toe, 4x4 tic tac toe, 5x5 tic tac toe, retro games">
     <link rel="canonical" href="https://example.com/">
     <meta property="og:type" content="website">
-    <meta property="og:title" content="Play Tic-Tac-Toe Online | 3x3, 4x4 & 5x5 Game">
-    <meta property="og:description" content="Challenge a friend or a computer across three tactical Tic-Tac-Toe board sizes.">
+    <meta property="og:title" content="Vibe Games | Modern Browser Gaming Platform">
+    <meta property="og:description" content="Experience fast, zero-install competitive tactical gaming directly in your browser. Powered by 3D visuals and smart AI.">
     <meta property="og:url" content="https://example.com/">
-    <meta name="twitter:card" content="summary">
-    <meta name="twitter:title" content="Play Tic-Tac-Toe Online">
-    <meta name="twitter:description" content="A fast, modern Tic-Tac-Toe game for friends and bot challengers.">
-    <title>Play Tic-Tac-Toe Online | 3x3, 4x4 & 5x5 Game</title>
-    <link rel="stylesheet" href="style.css">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Vibe Games | Modern Browser Gaming Platform">
+    <meta name="twitter:description" content="Fast, accessible, zero-install games rendered right in your browser.">
+    <title>Vibe Games | Modern Browser Gaming Platform</title>
+
+    <!-- Component & Modular Stylesheets -->
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/components/board.css">
+    <link rel="stylesheet" href="css/components/modular-ui.css">
+    <link rel="stylesheet" href="css/views/login.css">
+    <link rel="stylesheet" href="css/views/dashboard.css">
+
+    <!-- Schema.org WebApplication JSON-LD -->
     <script type="application/ld+json">
-      {"@context":"https://schema.org","@type":"WebApplication","name":"Vibe Tic-Tac-Toe","applicationCategory":"GameApplication","operatingSystem":"Any","browserRequirements":"Requires a modern JavaScript-enabled browser.","description":"A free online Tic-Tac-Toe game with local and computer play across 3x3, 4x4, and 5x5 boards.","url":"https://example.com/","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}}
+      {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "Vibe Games",
+        "applicationCategory": "GameApplication",
+        "operatingSystem": "Any",
+        "browserRequirements": "Requires a modern JavaScript-enabled browser.",
+        "description": "A modern gaming platform featuring fast, zero-install browser games including Vibe Tic-Tac-Toe.",
+        "url": "https://example.com/",
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "USD"
+        }
+      }
     </script>
-    <script src="app.js" defer></script>
+
+    <!-- Three.js Engine & GLTF Loader for 3D Hero Pipeline -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/GLTFLoader.js"></script>
+    <script src="assets/models/crystalModelData.js" defer></script>
+
+    <!-- Modular Application Scripts (Universal compatibility: works on file:/// and http://) -->
+    <script src="src/core/constants.js" defer></script>
+    <script src="src/core/state.js" defer></script>
+    <script src="src/core/router.js" defer></script>
+    <script src="src/modules/graphics.js" defer></script>
+    <script src="src/modules/network.js" defer></script>
+    <script src="src/modules/uiHandler.js" defer></script>
+    <script src="src/main.js" defer></script>
   </head>
   <body>
+    <!-- Site Navigation Header -->
     <header class="site-header">
-      <a class="brand" href="#game">Vibe <span>Tic-Tac-Toe</span></a>
+      <a class="brand" href="#home">Vibe <span>Games</span></a>
       <nav class="site-nav" aria-label="Primary navigation">
-        <a href="#game">Play</a>
-        <a href="#how-to-play">How to play</a>
-        <a href="#scoreboard">Scores</a>
+        <a class="nav-link is-active" href="#home">Home</a>
+        <a class="nav-link" href="#game">Play Game</a>
+        <a class="nav-link" href="#featured-games">Featured</a>
+        <a class="nav-link" href="#dashboard">Dashboard</a>
+        <a class="nav-link" href="#login">Player ID</a>
+        <a class="nav-link" href="#about">About</a>
       </nav>
     </header>
 
-    <main>
-      <aside class="ad-slot ad-slot--leaderboard content-width" aria-label="Advertisement">
-        <span>Advertisement</span>
-      </aside>
+    <!-- Primary Router View Mount Point -->
+    <main id="app-view">
 
-      <section class="game-section content-width" id="game" aria-labelledby="game-heading">
-        <div class="section-heading">
-          <div>
-            <p class="kicker">Game room</p>
-            <h1 id="game-heading">Pick the vibe. Make your move.</h1>
-          </div>
-          <button class="button button--ghost" id="restart-button" type="button">↻ New round</button>
-        </div>
-
-        <div class="game-layout">
-          <div class="game-panel controls-panel">
-            <div class="control-group">
-              <label for="game-mode">Who’s playing?</label>
-              <select id="game-mode" name="game-mode">
-                <option value="single">Me vs Bot</option>
-                <option value="two-player">Two Players</option>
-              </select>
+      <!-- ======================================================================
+           ROUTE 1: Modern Gaming-Platform Landing Page (#home)
+           ====================================================================== -->
+      <div id="view-home" class="app-route-view">
+        
+        <!-- 1. Full-Width Immersive Hero Section with 3D Crystal Gem -->
+        <section class="hero-section" aria-labelledby="hero-main-title">
+          <div class="content-width hero-container">
+            <div class="hero-content">
+              <div class="hero-badge-pill">
+                <span>⚡ Next-Gen Browser Gaming Platform</span>
+              </div>
+              <h1 id="hero-main-title" class="hero-title">
+                Enter The <span class="glow-text">Arcade</span> Dimension
+              </h1>
+              <p class="hero-subheading">
+                Experience fast, zero-install competitive tactical gaming directly in your browser. Powered by 3D visuals, unbeatable AI engines, and pure retro adrenaline.
+              </p>
+              <div class="hero-cta-group">
+                <a href="#game" class="button button--primary hero-cta hero-cta--primary">
+                  ▶ Play Tic-Tac-Toe
+                </a>
+                <a href="#featured-games" class="button button--ghost hero-cta hero-cta--secondary">
+                  Explore Games
+                </a>
+              </div>
+              <div class="hero-highlights-strip">
+                <span>Zero Install</span>
+                <span>Instant Play</span>
+                <span>Unbeatable AI</span>
+                <span>100% Free</span>
+              </div>
             </div>
-            <fieldset class="player-names">
-              <legend>Player names</legend>
+
+            <!-- Interactive 3D Visual Viewport -->
+            <div class="hero-visual">
+              <div id="hero-3d-canvas" class="hero-3d-viewport" aria-label="Interactive 3D Crystal Gem" role="img"></div>
+            </div>
+          </div>
+        </section>
+
+        <!-- 2. First CLS-Safe Advertisement Block -->
+        <aside class="ad-slot ad-slot--leaderboard content-width" aria-label="Advertisement">
+          <span>Advertisement</span>
+        </aside>
+
+        <!-- 3. Featured Games Section -->
+        <section class="featured-section content-width" id="featured-games" aria-labelledby="featured-heading">
+          <div class="featured-header-row">
+            <p class="kicker">Curated Arena</p>
+            <h2 id="featured-heading" class="section-title">Featured Games</h2>
+          </div>
+
+          <div class="featured-games-grid">
+            <!-- Vibe Tic-Tac-Toe Game Card -->
+            <article class="game-card">
+              <div class="game-card-media">
+                <img src="assets/images/logo.webp" alt="Vibe Tic-Tac-Toe emblem" class="game-card-thumb">
+                <span class="game-badge">Featured • Popular</span>
+              </div>
+              <div class="game-card-body">
+                <h3 class="game-card-title">Vibe Tic-Tac-Toe</h3>
+                <div class="game-level-tags">
+                  <span class="tag">3×3 Classic</span>
+                  <span class="tag">4×4 Tactical</span>
+                  <span class="tag">5×5 Wild</span>
+                </div>
+                <p class="game-card-desc">
+                  The timeless tactical grid reimagined for modern web browsers. Test your wits against our mathematically optimal Minimax AI or battle a friend in local pass-and-play across expandable board dimensions.
+                </p>
+                <div class="game-card-footer">
+                  <a href="#game" class="button button--primary game-card-action">Play Game</a>
+                  <span class="game-meta">1-2 Players • AI Bot</span>
+                </div>
+              </div>
+            </article>
+          </div>
+
+          <!-- Bottom-Right Aligned View All Games Action -->
+          <div class="view-all-tray">
+            <a href="#featured-games" class="button button--ghost view-all-btn">View All Games &rarr;</a>
+          </div>
+        </section>
+
+        <!-- 4. Modern About Us Section (Two-Column Responsive Layout) -->
+        <section class="about-section content-width" id="about" aria-labelledby="about-heading">
+          <div class="about-grid">
+            <div class="about-lead">
+              <p class="kicker">Our Philosophy</p>
+              <h2 id="about-heading" class="section-title">The Vibe Games Mission</h2>
+              <p class="about-lead-p">
+                Delivering friction-free, beautifully crafted gaming experiences accessible to anyone, anywhere — right inside the modern web browser.
+              </p>
+              <p class="about-mission-p">
+                We believe great gaming doesn't require gigabyte downloads, invasive app stores, or subscription paywalls. By leveraging standard HTML5, modern WebGL, and lightweight client architecture, Vibe Games provides instant, responsive gameplay with zero install friction.
+              </p>
+              <p class="about-mission-p">
+                Our AI engines guarantee clean, fair play, while our design system embraces radiant arcade aesthetics and radical accessibility (WCAG 2.1 AA). Looking ahead, our platform is actively expanding with real-time multiplayer lobbies, global seasonal leaderboards, and expandable strategic challenges.
+              </p>
+            </div>
+
+            <div class="about-features-grid">
+              <!-- Feature 1 -->
+              <div class="feature-card">
+                <div class="feature-icon-badge">⚡</div>
+                <h3 class="feature-title">Zero-Install Gaming</h3>
+                <p class="feature-desc">No launchers, downloads, or disk space required. Launch any game instantly on mobile, tablet, or desktop.</p>
+              </div>
+
+              <!-- Feature 2 -->
+              <div class="feature-card">
+                <div class="feature-icon-badge">🎯</div>
+                <h3 class="feature-title">Fair Competition</h3>
+                <p class="feature-desc">Play against mathematically sound Alpha-Beta Minimax bots or friends in local pass-and-play with verified fairness.</p>
+              </div>
+
+              <!-- Feature 3 -->
+              <div class="feature-card">
+                <div class="feature-icon-badge">♿</div>
+                <h3 class="feature-title">Radical Accessibility</h3>
+                <p class="feature-desc">Built for all players: full keyboard navigation, ARIA live announcements, high contrast, and reduced-motion modes.</p>
+              </div>
+
+              <!-- Feature 4 -->
+              <div class="feature-card">
+                <div class="feature-icon-badge">🚀</div>
+                <h3 class="feature-title">Expanding Universe</h3>
+                <p class="feature-desc">Upcoming WebSocket multiplayer rooms, social tournaments, and downloadable high-DPI scorecards.</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- 5. Second CLS-Safe Advertisement Block -->
+        <aside class="ad-slot ad-slot--rectangle content-width" aria-label="Advertisement">
+          <span>Advertisement</span>
+        </aside>
+
+        <!-- 6. Polished Site Footer -->
+        <footer class="site-footer content-width">
+          <div class="footer-main-row">
+            <div class="footer-brand-wrap">
+              <a class="brand" href="#home">Vibe <span>Games</span></a>
+              <p class="footer-tagline">
+                Modern retro browser games engineered for instant load times, fair competition, and pure arcade delight.
+              </p>
+            </div>
+
+            <div class="footer-nav-col">
+              <h4 class="footer-col-title">Navigation</h4>
+              <a href="#home">Home</a>
+              <a href="#game">Play Game</a>
+              <a href="#dashboard">Dashboard</a>
+              <a href="#login">Player ID</a>
+              <a href="#about">About Us</a>
+            </div>
+
+            <div class="footer-nav-col">
+              <h4 class="footer-col-title">Connect</h4>
+              <div class="footer-social-tray">
+                <a href="https://github.com" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="Vibe Games on GitHub">
+                  <svg class="social-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0 1 12 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0 0 22 12.017C22 6.484 17.522 2 12 2Z"/></svg>
+                </a>
+                <a href="https://discord.com" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="Vibe Games on Discord">
+                  <svg class="social-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028c.462-.63.874-1.295 1.226-1.994.021-.041.001-.09-.041-.106a13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.929 1.793 8.18 1.793 12.061 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.894.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.028zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z"/></svg>
+                </a>
+                <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="Vibe Games on Twitter/X">
+                  <svg class="social-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <div class="footer-bottom-row">
+            <p class="footer-copyright">
+              &copy; 2026 Vibe Games Platform. Zero-Dependency Web Standards Architecture.
+            </p>
+            <div class="footer-badges">
+              <span>WCAG 2.1 AA Compliant</span>
+              <span>•</span>
+              <span>CLS-Safe Layout</span>
+              <span>•</span>
+              <span>High-DPI Retina Canvas</span>
+            </div>
+          </div>
+        </footer>
+      </div>
+
+      <!-- ======================================================================
+           ROUTE 2: Dedicated Game Route (#game)
+           EXACT ORDER: How It Works → Game Room → Scoreboard
+           ====================================================================== -->
+      <div id="view-game" class="app-route-view hidden">
+        
+        <!-- STEP 1: How It Works -->
+        <section class="guide content-width" id="how-to-play" aria-labelledby="guide-heading">
+          <p class="kicker">How it works</p>
+          <h2 id="guide-heading" class="section-title">Start playing in three easy steps.</h2>
+          <div class="guide-grid">
+            <article>
+              <span class="step-number">1</span>
+              <h3>Choose players</h3>
+              <p>Select <strong>Me vs Bot</strong> to play O as the computer, then enter your X name. Select <strong>Two Players</strong> to enter both the X and O player names.</p>
+            </article>
+            <article>
+              <span class="step-number">2</span>
+              <h3>Set the challenge</h3>
+              <p>Choose Easy for a random bot or Strong for perfect classic 3×3 play. Then choose your level: 3×3 needs 3 in a row, 4×4 needs 4, and 5×5 needs 5.</p>
+            </article>
+            <article>
+              <span class="step-number">3</span>
+              <h3>Start and take turns</h3>
+              <p>Press <strong>Start game</strong>, then choose an empty square. X always starts. Against the bot, wait for its O move before selecting your next square.</p>
+            </article>
+          </div>
+        </section>
+
+        <!-- STEP 2: Game Room -->
+        <section class="game-section content-width" id="game" aria-labelledby="game-heading">
+          <div class="section-heading">
+            <div>
+              <p class="kicker">Game room</p>
+              <h1 id="game-heading">Pick the vibe. Make your move.</h1>
+            </div>
+            <button class="button button--ghost" id="restart-button" type="button">↻ New round</button>
+          </div>
+
+          <div class="game-layout">
+            <div class="game-panel controls-panel">
               <div class="control-group">
-                <label for="player-x-name">X player</label>
-                <input id="player-x-name" name="player-x-name" type="text" maxlength="20" autocomplete="nickname" placeholder="Enter your name" required>
+                <label for="game-mode">Who’s playing?</label>
+                <select id="game-mode" name="game-mode">
+                  <option value="single">Me vs Bot</option>
+                  <option value="two-player">Two Players</option>
+                </select>
               </div>
-              <div class="control-group" id="player-o-wrap" hidden>
-                <label for="player-o-name">O player</label>
-                <input id="player-o-name" name="player-o-name" type="text" maxlength="20" autocomplete="nickname" placeholder="Enter second player's name">
+
+              <fieldset class="player-names">
+                <legend>Player names</legend>
+                <div class="control-group">
+                  <label for="player-x-name">X player</label>
+                  <input id="player-x-name" name="player-x-name" type="text" maxlength="20" autocomplete="nickname" placeholder="Enter your name" value="Player X">
+                </div>
+                <div class="control-group" id="player-o-wrap" hidden>
+                  <label for="player-o-name">O player</label>
+                  <input id="player-o-name" name="player-o-name" type="text" maxlength="20" autocomplete="nickname" placeholder="Enter second player's name">
+                </div>
+              </fieldset>
+
+              <div class="control-group" id="difficulty-wrap">
+                <label for="bot-difficulty">Bot energy</label>
+                <select id="bot-difficulty" name="bot-difficulty">
+                  <option value="easy">Easy — Random</option>
+                  <option value="strong">Strong — Perfect on 3x3</option>
+                </select>
               </div>
-            </fieldset>
-            <div class="control-group" id="difficulty-wrap">
-              <label for="bot-difficulty">Bot energy</label>
-              <select id="bot-difficulty" name="bot-difficulty">
-                <option value="easy">Easy — Random</option>
-                <option value="strong">Strong — Perfect on 3x3</option>
-              </select>
+
+              <div class="control-group">
+                <label for="game-level">Board level</label>
+                <select id="game-level" name="game-level">
+                  <option value="1" selected>Level 1 — Classic 3×3</option>
+                  <option value="2">Level 2 — Tactical 4×4</option>
+                  <option value="3">Level 3 — Wild 5×5</option>
+                </select>
+              </div>
+
+              <div class="level-note" id="level-note">Connect 3 in a row to win.</div>
+              <button class="button button--primary" id="start-button" type="button">Start game</button>
             </div>
-            <div class="control-group">
-              <label for="game-level">Board level</label>
-              <select id="game-level" name="game-level">
-                <option value="1">Level 1 — Classic 3×3</option>
-                <option value="2">Level 2 — Tactical 4×4</option>
-                <option value="3">Level 3 — Wild 5×5</option>
-              </select>
+
+            <div class="game-panel board-panel">
+              <p class="game-status" id="game-status">Your turn — place an X.</p>
+              <p class="sr-only" id="live-region" aria-live="polite" aria-atomic="true"></p>
+              <div id="game-board" class="game-board" role="grid" aria-label="Tic-Tac-Toe board" style="--grid-size: 3;">
+                <button type="button" class="game-cell" data-index="0" role="gridcell" aria-rowindex="1" aria-colindex="1" aria-label="Row 1, column 1, empty"></button>
+                <button type="button" class="game-cell" data-index="1" role="gridcell" aria-rowindex="1" aria-colindex="2" aria-label="Row 1, column 2, empty"></button>
+                <button type="button" class="game-cell" data-index="2" role="gridcell" aria-rowindex="1" aria-colindex="3" aria-label="Row 1, column 3, empty"></button>
+                <button type="button" class="game-cell" data-index="3" role="gridcell" aria-rowindex="2" aria-colindex="1" aria-label="Row 2, column 1, empty"></button>
+                <button type="button" class="game-cell" data-index="4" role="gridcell" aria-rowindex="2" aria-colindex="2" aria-label="Row 2, column 2, empty"></button>
+                <button type="button" class="game-cell" data-index="5" role="gridcell" aria-rowindex="2" aria-colindex="3" aria-label="Row 2, column 3, empty"></button>
+                <button type="button" class="game-cell" data-index="6" role="gridcell" aria-rowindex="3" aria-colindex="1" aria-label="Row 3, column 1, empty"></button>
+                <button type="button" class="game-cell" data-index="7" role="gridcell" aria-rowindex="3" aria-colindex="2" aria-label="Row 3, column 2, empty"></button>
+                <button type="button" class="game-cell" data-index="8" role="gridcell" aria-rowindex="3" aria-colindex="3" aria-label="Row 3, column 3, empty"></button>
+              </div>
+              <p class="board-hint">You are <strong>X</strong>. The bot is <strong>O</strong>.</p>
             </div>
-            <div class="level-note" id="level-note">Connect 3 in a row to win.</div>
-            <button class="button button--primary" id="start-button" type="button">Start game</button>
+          </div>
+        </section>
+
+        <!-- STEP 3: Scoreboard -->
+        <section class="scoreboard content-width" id="scoreboard" aria-labelledby="scoreboard-heading">
+          <div>
+            <p class="kicker">Session results</p>
+            <h2 id="scoreboard-heading">Scoreboard</h2>
+          </div>
+          <table>
+            <caption class="sr-only">Wins and draws from this browser session</caption>
+            <thead>
+              <tr>
+                <th scope="col">Player</th>
+                <th scope="col">Mark</th>
+                <th scope="col">Wins</th>
+                <th scope="col">Losses</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td id="score-x-name">Player X</td>
+                <td>X</td>
+                <td id="score-x-wins">0</td>
+                <td id="score-x-losses">0</td>
+              </tr>
+              <tr>
+                <td id="score-o-name">Bot</td>
+                <td>O</td>
+                <td id="score-o-wins">0</td>
+                <td id="score-o-losses">0</td>
+              </tr>
+            </tbody>
+          </table>
+          <p class="draw-count" id="draw-count">Draws: 0</p>
+          <button id="share-scorecard-btn" class="vibe-btn-secondary" type="button">Share Scorecard</button>
+        </section>
+      </div>
+
+      <!-- ======================================================================
+           ROUTE 3: Dashboard / Player Hub (#dashboard)
+           ====================================================================== -->
+      <div id="view-dashboard" class="app-route-view hidden">
+        <section class="dashboard-view content-width" aria-labelledby="dash-heading">
+          <div class="dashboard-hero">
+            <div class="dashboard-greeting">
+              <p class="kicker">Player Command Center</p>
+              <h2 id="dash-heading">Welcome back to Vibe Arena</h2>
+              <p>Select your challenge level or resume your session matches.</p>
+            </div>
+            <a class="button button--primary" href="#game">▶ Play Now</a>
           </div>
 
-          <div class="game-panel board-panel">
-            <p class="game-status" id="game-status">Your turn — place an X.</p>
-            <p class="sr-only" id="live-region" aria-live="polite" aria-atomic="true"></p>
-            <div id="game-board" class="game-board" role="grid" aria-label="Tic-Tac-Toe board"></div>
-            <p class="board-hint">You are <strong>X</strong>. The bot is <strong>O</strong>.</p>
+          <div class="dashboard-stats-grid">
+            <div class="dash-stat-card">
+              <span class="stat-label">Total Matches</span>
+              <span class="stat-value" id="dash-total-matches">0</span>
+            </div>
+            <div class="dash-stat-card">
+              <span class="stat-label">Total Wins</span>
+              <span class="stat-value" id="dash-total-wins">0</span>
+            </div>
+            <div class="dash-stat-card">
+              <span class="stat-label">Win Rate</span>
+              <span class="stat-value" id="dash-win-rate">0%</span>
+            </div>
           </div>
-        </div>
-      </section>
 
-      <section class="scoreboard content-width" id="scoreboard" aria-labelledby="scoreboard-heading">
-        <div>
-          <p class="kicker">Session results</p>
-          <h2 id="scoreboard-heading">Scoreboard</h2>
-        </div>
-        <table>
-          <caption class="sr-only">Wins and draws from this browser session</caption>
-          <thead><tr><th scope="col">Player</th><th scope="col">Mark</th><th scope="col">Wins</th><th scope="col">Losses</th></tr></thead>
-          <tbody>
-            <tr><td id="score-x-name">X player</td><td>X</td><td id="score-x-wins">0</td><td id="score-x-losses">0</td></tr>
-            <tr><td id="score-o-name">Bot</td><td>O</td><td id="score-o-wins">0</td><td id="score-o-losses">0</td></tr>
-          </tbody>
-        </table>
-        <p class="draw-count" id="draw-count">Draws: 0</p>
-        <button id="share-scorecard-btn" class="vibe-btn-secondary" type="button">Share Scorecard</button>
-      </section>
+          <div>
+            <p class="kicker">Quick Play Modes</p>
+            <h2>Choose Your Challenge</h2>
+          </div>
 
-      <aside class="ad-slot ad-slot--rectangle content-width" aria-label="Advertisement">
-        <span>Advertisement</span>
-      </aside>
+          <div class="mode-cards-grid">
+            <article class="mode-card">
+              <div class="mode-card-icon">⚡</div>
+              <h3>Classic 3×3</h3>
+              <p>Fast, intense, standard Tic-Tac-Toe. Connect 3 in a row to win. Face our unbeatable Minimax bot.</p>
+              <button class="button button--ghost" type="button" data-action="quick-play" data-level="1" data-mode="single">Play Level 1</button>
+            </article>
 
-      <section class="guide content-width" id="how-to-play" aria-labelledby="guide-heading">
-        <p class="kicker">How it works</p>
-        <h2 id="guide-heading">Start playing in three easy steps.</h2>
-        <div class="guide-grid">
-          <article>
-            <span class="step-number">1</span>
-            <h3>Choose players</h3>
-            <p>Select <strong>Me vs Bot</strong> to play O as the computer, then enter your X name. Select <strong>Two Players</strong> to enter both the X and O player names.</p>
-          </article>
-          <article>
-            <span class="step-number">2</span>
-            <h3>Set the challenge</h3>
-            <p>Choose Easy for a random bot or Strong for perfect classic 3×3 play. Then choose your level: 3×3 needs 3 in a row, 4×4 needs 4, and 5×5 needs 5.</p>
-          </article>
-          <article>
-            <span class="step-number">3</span>
-            <h3>Start and take turns</h3>
-            <p>Press <strong>Start game</strong>, then choose an empty square. X always starts. Against the bot, wait for its O move before selecting your next square.</p>
-          </article>
-        </div>
-      </section>
+            <article class="mode-card">
+              <div class="mode-card-icon">🎯</div>
+              <h3>Tactical 4×4</h3>
+              <p>More space, deeper tactics. Requires 4 in a row to take the crown with adaptive positional play.</p>
+              <button class="button button--ghost" type="button" data-action="quick-play" data-level="2" data-mode="single">Play Level 2</button>
+            </article>
 
-      <aside class="ad-slot ad-slot--leaderboard content-width" aria-label="Advertisement">
-        <span>Advertisement</span>
-      </aside>
+            <article class="mode-card">
+              <div class="mode-card-icon">🔥</div>
+              <h3>Wild 5×5</h3>
+              <p>High complexity and vast possibilities. Connect 5 in a row to dominate the grid.</p>
+              <button class="button button--ghost" type="button" data-action="quick-play" data-level="3" data-mode="single">Play Level 3</button>
+            </article>
+          </div>
+        </section>
+      </div>
+
+      <!-- ======================================================================
+           ROUTE 4: Login / Player Identity (#login)
+           ====================================================================== -->
+      <div id="view-login" class="app-route-view hidden">
+        <section class="login-view content-width" aria-labelledby="login-heading">
+          <div class="login-card">
+            <div class="login-header">
+              <p class="kicker">Player Identity</p>
+              <h2 id="login-heading">Enter The Arena</h2>
+              <p>Choose your avatar and enter your nickname to personalize your experience.</p>
+            </div>
+
+            <div class="avatar-selector" role="radiogroup" aria-label="Select avatar">
+              <button class="avatar-option is-selected" type="button" aria-label="Neon Spark avatar">⚡</button>
+              <button class="avatar-option" type="button" aria-label="Crystal Star avatar">💎</button>
+              <button class="avatar-option" type="button" aria-label="Flame avatar">🔥</button>
+              <button class="avatar-option" type="button" aria-label="Cosmic Moon avatar">🌙</button>
+            </div>
+
+            <form class="login-form" onsubmit="event.preventDefault();">
+              <div class="control-group">
+                <label for="guest-nickname">Your Nickname</label>
+                <input id="guest-nickname" type="text" maxlength="20" placeholder="e.g. Neo or Ace" autocomplete="nickname">
+              </div>
+
+              <div class="login-actions">
+                <button class="button button--primary" id="guest-login-btn" type="button">Save Profile</button>
+                <a class="button button--ghost" href="#game">Jump Straight to Game</a>
+              </div>
+
+              <p class="guest-note">Zero passwords required. Guest data is saved privately in your browser.</p>
+            </form>
+          </div>
+        </section>
+      </div>
     </main>
 
-    <footer class="site-footer content-width"><p>Vibe Tic-Tac-Toe</p></footer>
+    <!-- Scorecard Sharing Modal Dialog -->
     <div id="share-modal" class="modal-overlay hidden" role="dialog" aria-modal="true" aria-labelledby="share-card-title">
       <div class="share-card-container">
         <button class="close-modal-btn" type="button" aria-label="Close scorecard sharing dialog">&times;</button>
         <div id="share-canvas-target" class="share-card-vibe">
-          <div class="share-card-brand"><img class="share-logo" src="images/logo.webp" alt="Vibe Tic-Tac-Toe"><span>Vibe Tic-Tac-Toe</span></div>
+          <div class="share-card-brand">
+            <img class="share-logo" src="assets/images/logo.webp" alt="Vibe Games Logo">
+            <span>Vibe Games</span>
+          </div>
           <p class="share-card-kicker">Head-to-head scorecard</p>
           <h3 class="share-card-title" id="share-card-title">Match Statistics</h3>
           <div class="share-flex-split">
@@ -164,16 +520,46 @@
             </div>
           </div>
           <div class="share-stat-rail">
-            <div><span class="stat-icon">★</span><strong id="modal-total-wins">0</strong><small>Total wins</small></div>
-            <div><span class="stat-icon">○</span><strong id="modal-draws-val"></strong><small>Draws</small></div>
-            <div><span class="stat-icon">▦</span><strong id="modal-total-matches">0</strong><small>Matches</small></div>
+            <div>
+              <span class="stat-icon">★</span>
+              <strong id="modal-total-wins">0</strong>
+              <small>Total wins</small>
+            </div>
+            <div>
+              <span class="stat-icon">○</span>
+              <strong id="modal-draws-val">0</strong>
+              <small>Draws</small>
+            </div>
+            <div>
+              <span class="stat-icon">▦</span>
+              <strong id="modal-total-matches">0</strong>
+              <small>Matches</small>
+            </div>
           </div>
           <p class="share-card-foot">Every move tells a story.</p>
         </div>
         <div class="share-actions-tray">
-          <button class="action-btn download-btn" id="action-download" type="button"><svg class="action-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v11m0 0 4-4m-4 4-4-4M5 18v2h14v-2"/></svg><span>Download Image</span></button>
-          <button class="action-btn whatsapp-btn" id="action-whatsapp" type="button"><svg class="action-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 11.5a8 8 0 0 1-11.8 7L4 20l1.5-4.1A8 8 0 1 1 20 11.5Z"/><path d="M9 8.5c.5 2.6 2 4 4.5 4.5l1.2-1.1 1.7.8c-.5 1.4-1.7 2-3 1.6-3.1-.9-5.3-3.1-6.2-6.2-.4-1.3.2-2.5 1.6-3l.8 1.7L9 8.5Z"/></svg><span>WhatsApp Status</span></button>
-          <button class="action-btn insta-btn" id="action-insta" type="button"><svg class="action-icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.4" cy="6.8" r="1"/></svg><span>Instagram Story</span></button>
+          <button class="action-btn download-btn" id="action-download" type="button">
+            <svg class="action-icon" viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M12 3v11m0 0 4-4m-4 4-4-4M5 18v2h14v-2"/>
+            </svg>
+            <span>Download Image</span>
+          </button>
+          <button class="action-btn whatsapp-btn" id="action-whatsapp" type="button">
+            <svg class="action-icon" viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M20 11.5a8 8 0 0 1-11.8 7L4 20l1.5-4.1A8 8 0 1 1 20 11.5Z"/>
+              <path d="M9 8.5c.5 2.6 2 4 4.5 4.5l1.2-1.1 1.7.8c-.5 1.4-1.7 2-3 1.6-3.1-.9-5.3-3.1-6.2-6.2-.4-1.3.2-2.5 1.6-3l.8 1.7L9 8.5Z"/>
+            </svg>
+            <span>WhatsApp Status</span>
+          </button>
+          <button class="action-btn insta-btn" id="action-insta" type="button">
+            <svg class="action-icon" viewBox="0 0 24 24" aria-hidden="true">
+              <rect x="3" y="3" width="18" height="18" rx="5"/>
+              <circle cx="12" cy="12" r="4"/>
+              <circle cx="17.4" cy="6.8" r="1"/>
+            </svg>
+            <span>Instagram Story</span>
+          </button>
         </div>
         <p class="share-feedback" id="share-feedback" aria-live="polite"></p>
       </div>

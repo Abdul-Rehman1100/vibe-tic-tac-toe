@@ -1,0 +1,30 @@
+<section class="login-view content-width" aria-labelledby="login-heading">
+  <div class="login-card">
+    <div class="login-header">
+      <p class="kicker">Player Identity</p>
+      <h2 id="login-heading">Enter The Arena</h2>
+      <p>Choose your avatar and enter your nickname to track your stats.</p>
+    </div>
+
+    <div class="avatar-selector" role="radiogroup" aria-label="Select avatar">
+      <button class="avatar-option is-selected" type="button" aria-label="Neon Spark avatar">⚡</button>
+      <button class="avatar-option" type="button" aria-label="Crystal Star avatar">💎</button>
+      <button class="avatar-option" type="button" aria-label="Flame avatar">🔥</button>
+      <button class="avatar-option" type="button" aria-label="Cosmic Moon avatar">🌙</button>
+    </div>
+
+    <form class="login-form" onsubmit="event.preventDefault();">
+      <div class="control-group">
+        <label for="guest-nickname">Your Nickname</label>
+        <input id="guest-nickname" type="text" maxlength="20" placeholder="e.g. Neo or Ace" autocomplete="nickname" required>
+      </div>
+
+      <div class="login-actions">
+        <button class="button button--primary" id="guest-login-btn" type="button">Continue to Dashboard</button>
+        <a class="button button--ghost" href="#game">Jump Straight to Game</a>
+      </div>
+
+      <p class="guest-note">Zero passwords required. Guest data is saved privately in your browser.</p>
+    </form>
+  </div>
+</section>
