@@ -61,7 +61,9 @@
   <body>
     <!-- Site Navigation Header -->
     <header class="site-header">
-      <a class="brand" href="#home">Vibe <span>Games</span></a>
+      <a class="brand" href="#home" aria-label="Vibe Games home">
+        <img src="assets/images/vibe-games-logo.svg" alt="" class="brand-logo">
+      </a>
       <nav class="site-nav" aria-label="Primary navigation">
         <a class="nav-link is-active" href="#home">Home</a>
         <a class="nav-link" href="#featured-games">Featured Games</a>
@@ -123,7 +125,6 @@
         <!-- 3. Featured Games Section -->
         <section class="featured-section content-width" id="featured-games" aria-labelledby="featured-heading">
           <div class="featured-header-row">
-            <p class="kicker">Curated Arena</p>
             <h2 id="featured-heading" class="section-title">Featured Games</h2>
           </div>
 
@@ -158,52 +159,41 @@
           </div>
         </section>
 
-        <!-- 4. Modern About Us Section (Two-Column Responsive Layout) -->
+        <!-- 4. Expandable About Section -->
         <section class="about-section content-width" id="about" aria-labelledby="about-heading">
-          <div class="about-grid">
-            <div class="about-lead">
-              <p class="kicker">Our Philosophy</p>
-              <h2 id="about-heading" class="section-title">The Vibe Games Mission</h2>
-              <p class="about-lead-p">
-                Delivering friction-free, beautifully crafted gaming experiences accessible to anyone, anywhere — right inside the modern web browser.
-              </p>
-              <p class="about-mission-p">
-                We believe great gaming doesn't require gigabyte downloads, invasive app stores, or subscription paywalls. By leveraging standard HTML5, modern WebGL, and lightweight client architecture, Vibe Games provides instant, responsive gameplay with zero install friction.
-              </p>
-              <p class="about-mission-p">
-                Our AI engines guarantee clean, fair play, while our design system embraces radiant arcade aesthetics and radical accessibility (WCAG 2.1 AA). Looking ahead, our platform is actively expanding with real-time multiplayer lobbies, global seasonal leaderboards, and expandable strategic challenges.
-              </p>
+          <div class="about-heading-block">
+            <div>
+              <h2 id="about-heading" class="section-title">Inside Vibe Games</h2>
+              <p>Discover the ideas and experiences behind the arena.</p>
             </div>
+            <span class="about-heading-mark" aria-hidden="true">✦</span>
+          </div>
 
-            <div class="about-features-grid">
-              <!-- Feature 1 -->
-              <div class="feature-card">
-                <div class="feature-icon-badge">⚡</div>
-                <h3 class="feature-title">Zero-Install Gaming</h3>
-                <p class="feature-desc">No launchers, downloads, or disk space required. Launch any game instantly on mobile, tablet, or desktop.</p>
-              </div>
-
-              <!-- Feature 2 -->
-              <div class="feature-card">
-                <div class="feature-icon-badge">🎯</div>
-                <h3 class="feature-title">Fair Competition</h3>
-                <p class="feature-desc">Play against mathematically sound Alpha-Beta Minimax bots or friends in local pass-and-play with verified fairness.</p>
-              </div>
-
-              <!-- Feature 3 -->
-              <div class="feature-card">
-                <div class="feature-icon-badge">♿</div>
-                <h3 class="feature-title">Radical Accessibility</h3>
-                <p class="feature-desc">Built for all players: full keyboard navigation, ARIA live announcements, high contrast, and reduced-motion modes.</p>
-              </div>
-
-              <!-- Feature 4 -->
-              <div class="feature-card">
-                <div class="feature-icon-badge">🚀</div>
-                <h3 class="feature-title">Expanding Universe</h3>
-                <p class="feature-desc">Upcoming WebSocket multiplayer rooms, social tournaments, and downloadable high-DPI scorecards.</p>
-              </div>
-            </div>
+          <div class="about-dropdown-grid">
+            <details class="about-dropdown">
+              <summary><span class="about-dropdown-icon" aria-hidden="true">✦</span><span>About Us</span></summary>
+              <div class="about-detail-card"><p>Vibe Games brings beautifully crafted, zero-install games straight to your browser. Jump in on desktop, tablet, or mobile, with no launcher or download to slow you down.</p></div>
+            </details>
+            <details class="about-dropdown">
+              <summary><span class="about-dropdown-icon" aria-hidden="true">▦</span><span>Games</span></summary>
+              <div class="about-detail-card"><p>Start with Vibe Tic-Tac-Toe: play a classic 3×3 match, build a bigger strategy on 4×4, or try the wild 5×5 board. Choose a bot match or pass the device to a friend.</p></div>
+            </details>
+            <details class="about-dropdown">
+              <summary><span class="about-dropdown-icon" aria-hidden="true">⚡</span><span>Our Mission</span></summary>
+              <div class="about-detail-card"><p>Make great games easy to start and satisfying to play. We focus on quick access, clear controls, and thoughtful experiences that work right inside the web.</p></div>
+            </details>
+            <details class="about-dropdown">
+              <summary><span class="about-dropdown-icon" aria-hidden="true">☄</span><span>Our Vision</span></summary>
+              <div class="about-detail-card"><p>Grow the arena with more games, live multiplayer rooms, community tournaments, and seasonal leaderboards—all while keeping play lightweight and accessible.</p></div>
+            </details>
+            <details class="about-dropdown">
+              <summary><span class="about-dropdown-icon" aria-hidden="true">◎</span><span>Fair Play</span></summary>
+              <div class="about-detail-card"><p>Challenge a friend locally or face a bot powered by a sound Minimax strategy. Every match follows the same rules, with no hidden advantages.</p></div>
+            </details>
+            <details class="about-dropdown">
+              <summary><span class="about-dropdown-icon" aria-hidden="true">◈</span><span>Accessibility</span></summary>
+              <div class="about-detail-card"><p>Keyboard-friendly controls, clear focus states, live status announcements, and reduced-motion support help more players enjoy every round.</p></div>
+            </details>
           </div>
         </section>
 
@@ -216,7 +206,9 @@
         <footer class="site-footer content-width">
           <div class="footer-main-row">
             <div class="footer-brand-wrap">
-              <a class="brand" href="#home">Vibe <span>Games</span></a>
+              <a class="brand" href="#home" aria-label="Vibe Games home">
+                <img src="assets/images/vibe-games-logo.svg" alt="" class="brand-logo">
+              </a>
               <p class="footer-tagline">
                 Modern retro browser games engineered for instant load times, fair competition, and pure arcade delight.
               </p>
@@ -270,7 +262,6 @@
         
         <!-- STEP 1: How It Works -->
         <section class="guide content-width" id="how-to-play" aria-labelledby="guide-heading">
-          <p class="kicker">How it works</p>
           <h2 id="guide-heading" class="section-title">Start playing in three easy steps.</h2>
           <div class="guide-grid">
             <article>
@@ -295,7 +286,6 @@
         <section class="game-section content-width" id="game" aria-labelledby="game-heading">
           <div class="section-heading">
             <div>
-              <p class="kicker">Game room</p>
               <h1 id="game-heading">Pick the vibe. Make your move.</h1>
             </div>
             <button class="button button--ghost" id="restart-button" type="button">↻ New round</button>
@@ -366,7 +356,6 @@
         <!-- STEP 3: Scoreboard -->
         <section class="scoreboard content-width" id="scoreboard" aria-labelledby="scoreboard-heading">
           <div>
-            <p class="kicker">Session results</p>
             <h2 id="scoreboard-heading">Scoreboard</h2>
           </div>
           <table>
@@ -406,7 +395,6 @@
         <section class="dashboard-view content-width" aria-labelledby="dash-heading">
           <div class="dashboard-hero">
             <div class="dashboard-greeting">
-              <p class="kicker">Player Command Center</p>
               <h2 id="dash-heading">Welcome back to Vibe Arena</h2>
               <p>Select your challenge level or resume your session matches.</p>
             </div>
@@ -429,7 +417,6 @@
           </div>
 
           <div>
-            <p class="kicker">Quick Play Modes</p>
             <h2>Choose Your Challenge</h2>
           </div>
 
@@ -465,7 +452,6 @@
         <section class="login-view content-width" aria-labelledby="login-heading">
           <div class="login-card">
             <div class="login-header">
-              <p class="kicker">Player Identity</p>
               <h2 id="login-heading">Enter The Arena</h2>
               <p>Choose your avatar and enter your nickname to personalize your experience.</p>
             </div>

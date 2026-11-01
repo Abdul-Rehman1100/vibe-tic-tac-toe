@@ -59,7 +59,7 @@
 }
 
 .dash-stat-card .stat-value {
-  font-family: var(--font-display);
+  font-family: var(--font-primary);
   font-size: 2.4rem;
   line-height: 1;
   color: var(--violet);
@@ -112,7 +112,8 @@
 }
 
 .mode-card button {
-  font-family: var(--font-display);
-  letter-spacing: 0.03em;
+  font-family: var(--font-body);
+  font-weight: 650;
+  letter-spacing: 0.01em;
   font-size: 0.95rem;
 }

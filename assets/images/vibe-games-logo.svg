@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 242 56" role="img" aria-labelledby="title">
+  <title id="title">Vibe Games</title>
+  <defs>
+    <linearGradient id="vibe-accent" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#8e7dff"/>
+      <stop offset="1" stop-color="#5140c7"/>
+    </linearGradient>
+  </defs>
+  <text x="2" y="38" fill="#162033" font-family="system-ui, -apple-system, 'Segoe UI', sans-serif" font-size="37" font-style="italic" font-weight="850" letter-spacing="-2.8">Vibe</text>
+  <text x="91" y="38" fill="url(#vibe-accent)" font-family="system-ui, -apple-system, 'Segoe UI', sans-serif" font-size="37" font-style="italic" font-weight="850" letter-spacing="-2.8">Games</text>
+  <path d="M4 49c37 7 74 7 111 0 34-6 70-6 112 0" fill="none" stroke="url(#vibe-accent)" stroke-linecap="round" stroke-width="2.4" opacity=".72"/>
+  <circle cx="232" cy="14" r="3" fill="#feca57"/>
+  <path d="m232 5 1.7 4.3L238 11l-4.3 1.7L232 17l-1.7-4.3L226 11l4.3-1.7Z" fill="#feca57"/>
+</svg>

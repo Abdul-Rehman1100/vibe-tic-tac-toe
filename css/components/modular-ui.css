@@ -2,20 +2,23 @@
    Modular UI Component Styles (Buttons, Panels, Controls, Modals, Cards)
    ========================================================================== */
 
-/* Buttons — Primary font Awesome */
+/* Buttons — Clear, consistent interface typography */
 .button {
   border: 0;
   border-radius: 0.85rem;
   padding: 0.78rem 1.25rem;
   color: var(--ink);
-  font-family: var(--font-primary);
+  font-family: var(--font-body);
   font-size: 0.95rem;
+  font-weight: 650;
+  letter-spacing: 0.01em;
   white-space: nowrap;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
-  transition: transform 0.16s ease, background 0.16s ease, box-shadow 0.16s ease;
+  transition: transform 0.22s cubic-bezier(0.22, 1, 0.36, 1), background 0.2s ease,
+    box-shadow 0.22s ease, color 0.2s ease;
   text-decoration: none;
 }
 
@@ -53,7 +56,9 @@ input:focus-visible {
 .vibe-btn-secondary {
   grid-column: 1 / -1;
   justify-self: center;
-  font-family: var(--font-primary);
+  font-family: var(--font-body);
+  font-weight: 650;
+  letter-spacing: 0.01em;
   font-size: 0.98rem;
   border: 1px solid #cfc8ed;
   border-radius: 0.8rem;
@@ -159,7 +164,7 @@ input:focus {
 }
 
 .scoreboard h2 {
-  font-family: var(--font-primary);
+  font-family: var(--font-display);
   font-size: 1.85rem;
   margin: 0.2rem 0 0;
 }
@@ -267,7 +272,8 @@ td:nth-child(4) {
   isolation: isolate;
   overflow: hidden;
   padding: clamp(1.5rem, 5vw, 2.35rem);
-  border-radius: 1.15rem;
+  border: 1px solid rgba(255, 255, 255, 0.32);
+  border-radius: 1.35rem;
   color: #fff;
   background:
     linear-gradient(140deg, rgba(29, 17, 91, 0.68), rgba(80, 38, 178, 0.58)),
@@ -280,7 +286,7 @@ td:nth-child(4) {
   position: absolute;
   z-index: -1;
   inset: 0;
-  background: linear-gradient(180deg, rgba(12, 12, 67, 0.15), rgba(33, 18, 104, 0.65));
+  background: linear-gradient(180deg, rgba(11, 8, 38, 0.78), rgba(19, 13, 63, 0.66) 50%, rgba(8, 15, 48, 0.88));
 }
 
 .share-card-vibe::after {
@@ -301,11 +307,12 @@ td:nth-child(4) {
   align-items: center;
   justify-content: center;
   gap: 0.55rem;
-  margin-bottom: 0.85rem;
+  margin-bottom: 0.7rem;
   color: rgba(255, 255, 255, 0.95);
   font-family: var(--font-primary);
-  font-size: 1.05rem;
-  letter-spacing: 0.05em;
+  font-size: 0.9rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
 }
 
@@ -328,10 +335,11 @@ td:nth-child(4) {
 }
 
 .share-card-title {
-  margin: 0.35rem 0 1.45rem;
+  margin: 0.35rem 0 1.15rem;
   color: #fff;
-  font-family: var(--font-primary);
-  font-size: clamp(1.65rem, 5vw, 2.35rem);
+  font-family: var(--font-game);
+  font-size: clamp(1.5rem, 4.5vw, 2.1rem);
+  letter-spacing: 0.015em;
   text-align: center;
   text-shadow: 0 3px 14px rgba(0, 0, 0, 0.35);
 }
@@ -345,19 +353,19 @@ td:nth-child(4) {
 
 .player-stat-side {
   min-width: 0;
-  padding: 1.15rem 0.75rem;
-  border: 1px solid rgba(255, 255, 255, 0.25);
-  border-radius: 1rem;
+  padding: 1.25rem 0.75rem;
+  border: 1px solid rgba(255, 255, 255, 0.82);
+  border-radius: 1.15rem;
   text-align: center;
-  backdrop-filter: blur(8px);
+  box-shadow: 0 12px 30px rgba(7, 7, 34, 0.2);
 }
 
 .side-x {
-  background: linear-gradient(145deg, rgba(255, 98, 115, 0.88), rgba(193, 45, 110, 0.77));
+  background: linear-gradient(145deg, #fff7f1, #ffe7e2);
 }
 
 .side-o {
-  background: linear-gradient(145deg, rgba(83, 178, 255, 0.88), rgba(58, 72, 204, 0.77));
+  background: linear-gradient(145deg, #f6f3ff, #e7e2ff);
 }
 
 /* Avatar Badges & Marks use Crackman font */
@@ -369,16 +377,19 @@ td:nth-child(4) {
   margin: 0 auto 0.65rem;
   border: 3px solid rgba(255, 255, 255, 0.8);
   border-radius: 50%;
-  background: rgba(255, 255, 255, 0.22);
+  background: currentColor;
   color: white;
   font-family: var(--font-game);
   font-size: 1.7rem;
   box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
 }
 
+.side-x .avatar-badge { background: #d84f52; }
+.side-o .avatar-badge { background: #6250e8; }
+
 .player-name-lbl {
   overflow: hidden;
-  color: #fff;
+  color: #162033;
   font-family: var(--font-primary);
   font-size: 1.05rem;
   text-overflow: ellipsis;
@@ -388,18 +399,20 @@ td:nth-child(4) {
 /* Win numbers use Crackman font */
 .player-win-count {
   margin-top: 0.35rem;
-  color: #fff;
+  color: #162033;
   font-family: var(--font-game);
   font-size: clamp(2.3rem, 7vw, 3.6rem);
   line-height: 1;
-  text-shadow: 0 3px 8px rgba(0, 0, 0, 0.22);
 }
+
+.side-x .player-win-count { color: #c84549; }
+.side-o .player-win-count { color: #5141c9; }
 
 .player-win-count::after {
   content: " wins";
   display: block;
   margin-top: 0.25rem;
-  color: rgba(255, 255, 255, 0.85);
+  color: #74718b;
   font-family: var(--font-primary);
   font-size: 0.76rem;
   letter-spacing: 0.05em;
@@ -411,9 +424,9 @@ td:nth-child(4) {
   place-items: center;
   width: 2.8rem;
   height: 2.8rem;
-  border: 2px solid rgba(255, 255, 255, 0.55);
+  border: 2px solid rgba(255, 218, 116, 0.76);
   border-radius: 50%;
-  background: rgba(16, 13, 67, 0.75);
+  background: #171438;
   color: white;
   font-family: var(--font-game);
   font-size: 0.8rem;
@@ -424,10 +437,10 @@ td:nth-child(4) {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   margin-top: 1.25rem;
-  padding: 0.85rem 0.35rem;
+  padding: 0.9rem 0.35rem;
   border: 1px solid rgba(255, 255, 255, 0.2);
   border-radius: 0.95rem;
-  background: rgba(20, 18, 83, 0.55);
+  background: rgba(12, 10, 48, 0.76);
   backdrop-filter: blur(8px);
 }
 

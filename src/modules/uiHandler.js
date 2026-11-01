@@ -363,6 +363,7 @@
     async drawShareCanvas() {
       const target = this.elements.shareCanvasTarget || document.querySelector("#share-canvas-target");
       const bounds = target.getBoundingClientRect();
+      if (document.fonts && document.fonts.ready) await document.fonts.ready;
       const scale = Math.max(2, Math.min(3, window.devicePixelRatio || 2));
       const canvas = document.createElement("canvas");
       canvas.width = Math.round(bounds.width * scale);
@@ -376,58 +377,122 @@
       const oName = (this.elements.modalNameO && this.elements.modalNameO.textContent) || "Bot";
       const xWins = (this.elements.modalWinsX && this.elements.modalWinsX.textContent) || "0";
       const oWins = (this.elements.modalWinsO && this.elements.modalWinsO.textContent) || "0";
+      const draws = (this.elements.modalDraws && this.elements.modalDraws.textContent) || "0";
+      const totalWins = (this.elements.modalTotalWins && this.elements.modalTotalWins.textContent) || "0";
+      const totalMatches = (this.elements.modalTotalMatches && this.elements.modalTotalMatches.textContent) || "0";
 
       const gradient = context.createLinearGradient(0, 0, width, height);
-      gradient.addColorStop(0, "#21115c");
-      gradient.addColorStop(0.52, "#5126a8");
-      gradient.addColorStop(1, "#182c8b");
+      gradient.addColorStop(0, "#100d32");
+      gradient.addColorStop(0.5, "#342078");
+      gradient.addColorStop(1, "#101a4c");
       context.fillStyle = gradient;
       context.fillRect(0, 0, width, height);
 
       try {
         const background = await this.loadCanvasImage(state.shareBackground);
-        context.globalAlpha = 0.3;
+        context.globalAlpha = 0.38;
         this.drawCoverImage(context, background, width, height);
         context.globalAlpha = 1;
-        context.fillStyle = "rgba(16, 8, 70, .48)";
-        context.fillRect(0, 0, width, height);
       } catch {
         // Fallback
       }
 
-      context.fillStyle = "#ffdd77";
+      const shade = context.createLinearGradient(0, 0, 0, height);
+      shade.addColorStop(0, "rgba(11, 8, 38, .82)");
+      shade.addColorStop(0.5, "rgba(19, 13, 63, .67)");
+      shade.addColorStop(1, "rgba(8, 15, 48, .88)");
+      context.fillStyle = shade;
+      context.fillRect(0, 0, width, height);
+
+      const glow = context.createRadialGradient(width * 0.5, height * 0.42, 0, width * 0.5, height * 0.42, width * 0.72);
+      glow.addColorStop(0, "rgba(125, 94, 255, .2)");
+      glow.addColorStop(1, "rgba(125, 94, 255, 0)");
+      context.fillStyle = glow;
+      context.fillRect(0, 0, width, height);
+
+      const inset = Math.max(9, width * 0.018);
+      this.roundRect(context, inset, inset, width - inset * 2, height - inset * 2, Math.max(16, width * 0.035));
+      context.strokeStyle = "rgba(255, 255, 255, .28)";
+      context.lineWidth = 1;
+      context.stroke();
+
       context.textAlign = "center";
-      context.font = `800 ${Math.max(12, width * 0.03)}px 'Crackman', Impact, 'Arial Black', sans-serif`;
-      context.fillText("VIBE GAMES ARENA", width / 2, height * 0.075);
+      context.textBaseline = "middle";
+      context.fillStyle = "#ffda74";
+      context.font = `700 ${Math.max(10, width * 0.022)}px 'Segoe UI', Inter, system-ui, sans-serif`;
+      context.fillText("✦  VIBE GAMES  •  ARCADE CLUB  ✦", width / 2, height * 0.075);
 
       context.fillStyle = "#ffffff";
-      context.font = `800 ${Math.max(24, width * 0.068)}px 'Crackman', Impact, 'Arial Black', sans-serif`;
-      context.fillText("Match Statistics", width / 2, height * 0.16);
+      context.font = `800 ${Math.max(22, width * 0.058)}px 'Crackman', Impact, 'Arial Black', sans-serif`;
+      context.fillText("MATCH STATISTICS", width / 2, height * 0.155, width * 0.84);
 
-      const sideWidth = width * 0.31;
-      const sideHeight = height * 0.42;
-      const sideY = height * 0.27;
+      context.fillStyle = "rgba(237, 235, 255, .82)";
+      context.font = `500 ${Math.max(10, width * 0.022)}px 'Segoe UI', Inter, system-ui, sans-serif`;
+      context.fillText("YOUR SESSION AT A GLANCE", width / 2, height * 0.215);
 
-      this.drawStatPanel(context, width * 0.08, sideY, sideWidth, sideHeight, "#fff0eb", "#c84e44", "X", xName, xWins);
-      this.drawStatPanel(context, width * 0.61, sideY, sideWidth, sideHeight, "#eeeaff", "#5141c9", "O", oName, oWins);
+      const sideWidth = width * 0.35;
+      const sideHeight = height * 0.37;
+      const sideY = height * 0.275;
 
-      context.fillStyle = "#162033";
+      this.drawStatPanel(context, width * 0.065, sideY, sideWidth, sideHeight, "#fff4ef", "#d84f52", "X", xName, xWins);
+      this.drawStatPanel(context, width * 0.585, sideY, sideWidth, sideHeight, "#f0edff", "#6250e8", "O", oName, oWins);
+
+      context.save();
+      context.shadowColor = "rgba(5, 5, 28, .55)";
+      context.shadowBlur = width * 0.035;
+      context.fillStyle = "#171438";
       context.beginPath();
-      context.arc(width / 2, sideY + sideHeight / 2, width * 0.052, 0, Math.PI * 2);
+      context.arc(width / 2, sideY + sideHeight / 2, width * 0.047, 0, Math.PI * 2);
       context.fill();
+      context.restore();
+      context.beginPath();
+      context.arc(width / 2, sideY + sideHeight / 2, width * 0.047, 0, Math.PI * 2);
+      context.strokeStyle = "rgba(255, 218, 116, .72)";
+      context.lineWidth = Math.max(1.5, width * 0.003);
+      context.stroke();
 
-      context.fillStyle = "white";
-      context.font = `800 ${Math.max(10, width * 0.027)}px 'Crackman', Impact, 'Arial Black', sans-serif`;
-      context.fillText("VS", width / 2, sideY + sideHeight / 2 + 4);
-
-      context.fillStyle = "rgba(20,18,83,.62)";
-      this.roundRect(context, width * 0.12, height * 0.79, width * 0.76, height * 0.1, 12);
-      context.fill();
-
-      const drawsText = (this.elements.modalDraws && this.elements.modalDraws.textContent) || "0";
       context.fillStyle = "#ffffff";
-      context.font = `800 ${Math.max(13, width * 0.036)}px 'Awesome', Inter, system-ui, sans-serif`;
-      context.fillText(`DRAWS: ${drawsText}`, width / 2, height * 0.855);
+      context.font = `800 ${Math.max(10, width * 0.024)}px 'Segoe UI', Inter, system-ui, sans-serif`;
+      context.fillText("VS", width / 2, sideY + sideHeight / 2);
+
+      const railX = width * 0.075;
+      const railY = height * 0.695;
+      const railWidth = width * 0.85;
+      const railHeight = height * 0.155;
+      this.roundRect(context, railX, railY, railWidth, railHeight, Math.max(12, width * 0.025));
+      context.fillStyle = "rgba(12, 10, 48, .76)";
+      context.fill();
+      context.strokeStyle = "rgba(255, 255, 255, .2)";
+      context.lineWidth = 1;
+      context.stroke();
+
+      const metrics = [
+        ["TOTAL WINS", totalWins],
+        ["DRAWS", draws],
+        ["MATCHES", totalMatches]
+      ];
+      const columnWidth = railWidth / metrics.length;
+      metrics.forEach(([label, value], index) => {
+        const centerX = railX + columnWidth * (index + 0.5);
+        if (index > 0) {
+          context.beginPath();
+          context.moveTo(railX + columnWidth * index, railY + railHeight * 0.22);
+          context.lineTo(railX + columnWidth * index, railY + railHeight * 0.78);
+          context.strokeStyle = "rgba(255, 255, 255, .18)";
+          context.lineWidth = 1;
+          context.stroke();
+        }
+        context.fillStyle = "#c8c2ee";
+        context.font = `700 ${Math.max(8, width * 0.017)}px 'Segoe UI', Inter, system-ui, sans-serif`;
+        context.fillText(label, centerX, railY + railHeight * 0.34);
+        context.fillStyle = index === 1 ? "#ffda74" : "#ffffff";
+        context.font = `800 ${Math.max(16, width * 0.045)}px 'Segoe UI', Inter, system-ui, sans-serif`;
+        context.fillText(value, centerX, railY + railHeight * 0.69);
+      });
+
+      context.fillStyle = "rgba(237, 235, 255, .72)";
+      context.font = `600 ${Math.max(8, width * 0.016)}px 'Segoe UI', Inter, system-ui, sans-serif`;
+      context.fillText("PLAY  •  COMPETE  •  REPEAT", width / 2, height * 0.925);
 
       return canvas;
     }
@@ -449,30 +514,49 @@
     }
 
     drawStatPanel(context, x, y, width, height, background, color, mark, name, wins) {
+      context.save();
+      context.shadowColor = "rgba(5, 5, 30, .3)";
+      context.shadowBlur = width * 0.09;
+      context.shadowOffsetY = height * 0.025;
       context.fillStyle = background;
-      this.roundRect(context, x, y, width, height, 18);
+      this.roundRect(context, x, y, width, height, Math.max(14, width * 0.075));
       context.fill();
+      context.restore();
+
+      this.roundRect(context, x, y, width, height, Math.max(14, width * 0.075));
+      context.strokeStyle = "rgba(255, 255, 255, .88)";
+      context.lineWidth = Math.max(1, width * 0.006);
+      context.stroke();
+
+      context.fillStyle = color;
+      this.roundRect(context, x + width * 0.12, y + height * 0.075, width * 0.76, Math.max(2, height * 0.012), height);
+      context.fill();
+
+      context.fillStyle = "#73708c";
+      context.textAlign = "center";
+      context.textBaseline = "middle";
+      context.font = `700 ${Math.max(8, width * 0.065)}px 'Segoe UI', Inter, system-ui, sans-serif`;
+      context.fillText(`PLAYER ${mark}`, x + width / 2, y + height * 0.15);
 
       context.fillStyle = color;
       context.beginPath();
-      context.arc(x + width / 2, y + height * 0.23, Math.min(width, height) * 0.15, 0, Math.PI * 2);
+      context.arc(x + width / 2, y + height * 0.34, Math.min(width, height) * 0.145, 0, Math.PI * 2);
       context.fill();
 
       context.fillStyle = "white";
-      context.textAlign = "center";
       context.font = `900 ${Math.max(22, width * 0.26)}px 'Crackman', Impact, 'Arial Black', sans-serif`;
-      context.fillText(mark, x + width / 2, y + height * 0.28);
+      context.fillText(mark, x + width / 2, y + height * 0.34, width * 0.25);
 
       context.fillStyle = "#162033";
-      context.font = `800 ${Math.max(12, width * 0.11)}px 'Awesome', Inter, system-ui, sans-serif`;
-      context.fillText(name.slice(0, 14), x + width / 2, y + height * 0.55);
+      context.font = `700 ${Math.max(12, width * 0.105)}px 'Awesome', Inter, system-ui, sans-serif`;
+      context.fillText(name.slice(0, 18), x + width / 2, y + height * 0.59, width * 0.84);
 
       context.fillStyle = color;
       context.font = `900 ${Math.max(32, width * 0.34)}px 'Crackman', Impact, 'Arial Black', sans-serif`;
-      context.fillText(wins, x + width / 2, y + height * 0.78);
+      context.fillText(wins, x + width / 2, y + height * 0.79, width * 0.72);
 
-      context.fillStyle = "#657089";
-      context.font = `700 ${Math.max(9, width * 0.075)}px 'Awesome', Inter, system-ui, sans-serif`;
+      context.fillStyle = "#73708c";
+      context.font = `700 ${Math.max(8, width * 0.065)}px 'Segoe UI', Inter, system-ui, sans-serif`;
       context.fillText("WINS", x + width / 2, y + height * 0.91);
     }
 

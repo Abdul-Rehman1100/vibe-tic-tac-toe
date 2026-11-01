@@ -28,6 +28,8 @@
     async init() {
       if (!this.ui) return;
 
+      this.setupHeaderScrollState();
+
       // 1. Initialize UI Handler & DOM bindings
       this.ui.init();
 
@@ -66,6 +68,15 @@
 
       // 4. Attach quick-play & login handlers for secondary views
       this.attachSubViewHandlers();
+    }
+
+    setupHeaderScrollState() {
+      const header = document.querySelector(".site-header");
+      if (!header) return;
+
+      const update = () => header.classList.toggle("is-scrolled", window.scrollY > 24);
+      update();
+      window.addEventListener("scroll", update, { passive: true });
     }
 
     handleViewChange(route) {
