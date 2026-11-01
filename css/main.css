@@ -1,8 +1,17 @@
 @charset "UTF-8";
 
 /* ==========================================================================
-   Crackman Font Face Declarations (Custom Display & Arcade Typefaces)
+   Font Face Declarations
    ========================================================================== */
+@font-face {
+  font-family: "Awesome";
+  src: url("../assets/fonts/Awesome.otf") format("opentype"),
+       url("../assets/fonts/Awesome.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
 @font-face {
   font-family: "Crackman";
   src: url("../assets/fonts/Crackman.otf") format("opentype");
@@ -28,15 +37,17 @@
 }
 
 /* ==========================================================================
-   Design Tokens & CSS Variables (Arcade Theme & Typography Hierarchy)
+   Design Tokens & Centralized Typography System
    ========================================================================== */
 :root {
   --ink: #162033;
-  --muted: #657089;
-  --paper: #fffdf8;
+  --ink-light: #2b364d;
+  --muted: #64708a;
+  --paper: #f8f6fd;
   --surface: #ffffff;
-  --surface-translucent: rgba(255, 255, 255, 0.88);
-  --lavender: #e8e1ff;
+  --surface-panel: #fcfaff;
+  --surface-translucent: rgba(255, 255, 255, 0.92);
+  --lavender: #ece7ff;
   --peach: #ffd8bd;
   --mint: #c7f4df;
   --coral: #ff6f61;
@@ -45,18 +56,19 @@
   --violet-glow: #8e7dff;
   --cyan-accent: #00d2d3;
   --neon-yellow: #feca57;
-  --line: #e8e7ef;
-  --line-translucent: rgba(232, 231, 239, 0.65);
-  --shadow: 0 18px 50px rgba(40, 35, 72, 0.1);
+  --line: #e6e2f2;
+  --line-translucent: rgba(101, 85, 217, 0.16);
+  --shadow: 0 16px 45px rgba(35, 25, 75, 0.08);
+  --shadow-elevated: 0 24px 60px rgba(30, 20, 70, 0.12);
   --shadow-glow: 0 0 35px rgba(101, 85, 217, 0.25);
   --radius: 1.5rem;
   --radius-sm: 0.85rem;
 
-  /* Centralized Typography Hierarchy Tokens */
-  --font-display: "Crackman", "Arial Black", Impact, sans-serif;
-  --font-display-front: "Crackman Front", "Crackman", sans-serif;
-  --font-display-back: "Crackman Back", "Crackman", sans-serif;
-  --font-body: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  /* Centralized Typography Tokens */
+  --font-primary: "Awesome", Inter, ui-sans-serif, system-ui, -apple-system, sans-serif;
+  --font-display: var(--font-primary);
+  --font-body: Inter, ui-sans-serif, system-ui, -apple-system, -apple-system, sans-serif;
+  --font-game: "Crackman", Impact, "Arial Black", sans-serif;
 }
 
 /* ==========================================================================
@@ -74,11 +86,11 @@ body {
   margin: 0;
   color: var(--ink);
   background:
-    radial-gradient(circle at 10% 0%, #fff2e2 0, transparent 28rem),
-    radial-gradient(circle at 92% 8%, #eadeff 0, transparent 32rem),
-    radial-gradient(circle at 50% 50%, #f7f4ff 0, transparent 40rem),
+    radial-gradient(circle at 10% 0%, #fff2e6 0, transparent 28rem),
+    radial-gradient(circle at 92% 5%, #ede4ff 0, transparent 32rem),
+    radial-gradient(circle at 50% 45%, #f6f2ff 0, transparent 40rem),
     var(--paper);
-  font-family: var(--font-body);
+  font-family: var(--font-primary);
   line-height: 1.55;
   min-height: 100vh;
   overflow-x: hidden;
@@ -87,7 +99,7 @@ body {
 button,
 select,
 input {
-  font-family: var(--font-body);
+  font-family: var(--font-primary);
 }
 
 button {
@@ -95,27 +107,27 @@ button {
 }
 
 .content-width {
-  width: min(100% - 2rem, 72rem);
+  width: min(100% - 2.5rem, 74rem);
   margin-inline: auto;
 }
 
 /* ==========================================================================
-   Site Header & Brand Navigation
+   Site Header & Brand Navigation (Clean & Focused)
    ========================================================================== */
 .site-header {
-  width: min(100% - 2rem, 72rem);
+  width: min(100% - 2.5rem, 74rem);
   margin: 0 auto;
-  padding: 1.5rem 0;
+  padding: 1.4rem 0;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  gap: 1rem;
+  gap: 1.5rem;
   position: relative;
-  z-index: 20;
+  z-index: 30;
 }
 
 .brand {
-  font-family: var(--font-display);
+  font-family: var(--font-primary);
   color: var(--ink);
   letter-spacing: 0.04em;
   text-decoration: none;
@@ -127,25 +139,26 @@ button {
 }
 
 .brand:hover {
-  transform: scale(1.03);
+  transform: scale(1.02);
 }
 
 .brand span {
   color: var(--violet);
-  text-shadow: 0 0 16px rgba(101, 85, 217, 0.4);
+  text-shadow: 0 0 16px rgba(101, 85, 217, 0.35);
 }
 
 .site-nav {
   display: flex;
   align-items: center;
-  gap: clamp(0.5rem, 1.8vw, 1.25rem);
+  gap: clamp(0.4rem, 1.5vw, 1rem);
 }
 
 .site-nav a,
 .nav-link {
   color: var(--muted);
-  font-size: 0.92rem;
-  font-weight: 700;
+  font-family: var(--font-primary);
+  font-size: 0.95rem;
+  font-weight: normal;
   text-decoration: none;
   padding: 0.45rem 0.85rem;
   border-radius: 0.65rem;
@@ -161,45 +174,50 @@ button {
 }
 
 /* ==========================================================================
-   Headings & Kickers
+   Typography Standards across All Headings & Labels
    ========================================================================== */
 .eyebrow,
 .kicker {
   margin: 0;
   color: var(--violet);
-  font-size: 0.82rem;
-  font-weight: 850;
+  font-family: var(--font-primary);
+  font-size: 0.84rem;
   text-transform: uppercase;
   letter-spacing: 0.12em;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
 }
 
 h1,
 h2,
-h3 {
-  font-family: var(--font-display);
-  letter-spacing: 0.03em;
+h3,
+h4 {
+  font-family: var(--font-primary);
+  letter-spacing: 0.02em;
   font-weight: normal;
+  color: var(--ink);
 }
 
 h1 {
-  margin: 0.5rem 0 0;
+  margin: 0.4rem 0 0;
   font-size: clamp(2.3rem, 5vw, 4.2rem);
   line-height: 1.08;
 }
 
 h2 {
-  margin: 0.5rem 0 0;
-  font-size: clamp(1.9rem, 3.8vw, 3.2rem);
-  line-height: 1.12;
+  margin: 0.4rem 0 0;
+  font-size: clamp(1.9rem, 3.6vw, 3rem);
+  line-height: 1.15;
 }
 
 h3 {
-  margin: 0 0 0.6rem;
-  font-size: clamp(1.2rem, 2vw, 1.55rem);
+  margin: 0 0 0.5rem;
+  font-size: clamp(1.2rem, 2vw, 1.5rem);
 }
 
 .section-title {
-  margin-top: 0.4rem;
+  margin-top: 0.35rem;
 }
 
 /* ==========================================================================
@@ -208,12 +226,14 @@ h3 {
 .hero-section {
   position: relative;
   width: 100%;
-  padding: clamp(2rem, 5vw, 4.5rem) 0 clamp(2.5rem, 6vw, 5rem);
+  padding: clamp(2.5rem, 5.5vw, 4.5rem) 0 clamp(3rem, 6.5vw, 5rem);
   background:
-    radial-gradient(ellipse at 75% 40%, rgba(142, 125, 255, 0.22) 0%, transparent 60%),
-    radial-gradient(ellipse at 20% 80%, rgba(254, 202, 87, 0.18) 0%, transparent 50%),
-    linear-gradient(170deg, #f9f7ff 0%, #ede6ff 45%, #fdf7ee 100%);
-  border-bottom: 1px solid var(--line);
+    radial-gradient(ellipse at 75% 35%, rgba(142, 125, 255, 0.28) 0%, transparent 60%),
+    radial-gradient(ellipse at 15% 85%, rgba(254, 202, 87, 0.2) 0%, transparent 55%),
+    linear-gradient(165deg, #1b123d 0%, #29185a 45%, #180f38 100%);
+  color: #fff;
+  border-bottom: 1px solid rgba(142, 125, 255, 0.3);
+  box-shadow: 0 12px 40px rgba(18, 10, 45, 0.35);
   overflow: hidden;
 }
 
@@ -222,8 +242,8 @@ h3 {
   position: absolute;
   inset: 0;
   background-image:
-    linear-gradient(to right, rgba(101, 85, 217, 0.05) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(101, 85, 217, 0.05) 1px, transparent 1px);
+    linear-gradient(to right, rgba(255, 255, 255, 0.04) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
   background-size: 3rem 3rem;
   mask-image: radial-gradient(circle at 60% 40%, black 30%, transparent 75%);
   pointer-events: none;
@@ -232,7 +252,7 @@ h3 {
 .hero-container {
   display: grid;
   grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.95fr);
-  gap: clamp(1.5rem, 4vw, 3rem);
+  gap: clamp(1.5rem, 4vw, 3.5rem);
   align-items: center;
   position: relative;
   z-index: 10;
@@ -249,35 +269,38 @@ h3 {
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
-  padding: 0.4rem 0.95rem;
+  padding: 0.45rem 1rem;
   border-radius: 2rem;
-  background: rgba(101, 85, 217, 0.12);
-  border: 1px solid rgba(101, 85, 217, 0.28);
-  color: var(--violet);
-  font-size: 0.82rem;
-  font-weight: 800;
-  text-transform: uppercase;
+  background: rgba(142, 125, 255, 0.18);
+  border: 1px solid rgba(142, 125, 255, 0.38);
+  color: #d8cdff;
+  font-family: var(--font-primary);
+  font-size: 0.85rem;
   letter-spacing: 0.08em;
-  box-shadow: 0 4px 15px rgba(101, 85, 217, 0.12);
+  text-transform: uppercase;
+  backdrop-filter: blur(8px);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
 }
 
 .hero-title {
-  color: var(--ink);
+  color: #ffffff;
+  text-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
 }
 
 .glow-text {
-  color: var(--violet);
-  background: linear-gradient(135deg, #7865ef 0%, #df4e77 70%, #ffbc52 100%);
+  color: #c4b5fd;
+  background: linear-gradient(135deg, #a78bfa 0%, #f472b6 60%, #fbbf24 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  filter: drop-shadow(0 4px 20px rgba(120, 101, 239, 0.35));
+  filter: drop-shadow(0 4px 22px rgba(167, 139, 250, 0.45));
 }
 
 .hero-subheading {
   margin: 0;
-  color: var(--muted);
-  font-size: clamp(1.05rem, 1.8vw, 1.25rem);
-  line-height: 1.6;
+  color: #cdd2ea;
+  font-family: var(--font-body);
+  font-size: clamp(1.05rem, 1.8vw, 1.22rem);
+  line-height: 1.65;
   max-width: 36rem;
 }
 
@@ -290,41 +313,49 @@ h3 {
 }
 
 .hero-cta {
-  font-family: var(--font-display);
+  font-family: var(--font-primary);
   font-size: 1.05rem;
   letter-spacing: 0.04em;
-  padding: 0.95rem 1.75rem;
+  padding: 0.95rem 1.8rem;
   border-radius: 1rem;
   text-decoration: none;
 }
 
 .hero-cta--primary {
-  background: linear-gradient(135deg, #6555d9 0%, #4736b2 100%);
+  background: linear-gradient(135deg, #7c6cf0 0%, #523ec9 100%);
   color: #fff;
-  box-shadow: 0 6px 0 #31238a, 0 14px 28px rgba(101, 85, 217, 0.38);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  box-shadow: 0 6px 0 #32219c, 0 14px 28px rgba(101, 85, 217, 0.45);
 }
 
 .hero-cta--primary:hover {
-  background: linear-gradient(135deg, #7868f0 0%, #5340ca 100%);
+  background: linear-gradient(135deg, #8b7cf7 0%, #604cd4 100%);
   transform: translateY(-2px);
-  box-shadow: 0 8px 0 #31238a, 0 18px 32px rgba(101, 85, 217, 0.45);
+  box-shadow: 0 8px 0 #32219c, 0 18px 34px rgba(101, 85, 217, 0.55);
 }
 
 .hero-cta--secondary {
-  border: 1px solid var(--line);
-  background: var(--surface);
-  box-shadow: 0 4px 0 var(--line), 0 8px 20px rgba(0, 0, 0, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  background: rgba(255, 255, 255, 0.1);
+  color: #ffffff;
+  backdrop-filter: blur(8px);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+}
+
+.hero-cta--secondary:hover {
+  background: rgba(255, 255, 255, 0.2);
+  color: #fff;
+  transform: translateY(-2px);
 }
 
 .hero-highlights-strip {
   display: flex;
   align-items: center;
   flex-wrap: wrap;
-  gap: clamp(0.75rem, 2vw, 1.5rem);
+  gap: clamp(0.75rem, 2vw, 1.4rem);
   padding-top: 0.5rem;
-  font-size: 0.85rem;
-  font-weight: 750;
-  color: var(--muted);
+  font-size: 0.88rem;
+  color: #b8c0e0;
 }
 
 .hero-highlights-strip span {
@@ -335,7 +366,7 @@ h3 {
 
 .hero-highlights-strip span::before {
   content: "•";
-  color: var(--coral);
+  color: var(--cyan-accent);
   font-weight: 900;
 }
 
@@ -366,49 +397,74 @@ h3 {
   height: 100% !important;
   display: block;
   outline: none;
-  filter: drop-shadow(0 18px 45px rgba(101, 85, 217, 0.3));
+  filter: drop-shadow(0 18px 45px rgba(142, 125, 255, 0.35));
 }
 
 /* ==========================================================================
-   FEATURED GAMES SECTION
+   FEATURED GAMES SECTION (Elevated Container & Compact Marketplace Cards)
    ========================================================================== */
+
+/* Hero → Featured visual divider gap */
+.ad-slot:first-of-type {
+  margin-top: 3rem;
+}
+
 .featured-section {
-  padding: 3rem 0;
+  margin-block: 1rem 3.5rem;
+  padding: clamp(2rem, 4vw, 3.25rem) clamp(1.5rem, 3.5vw, 2.75rem);
+  background: linear-gradient(180deg, #ffffff 0%, #fbf9ff 100%);
+  border: 1px solid var(--line-translucent);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  position: relative;
 }
 
 .featured-header-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
   margin-bottom: 2rem;
+  border-bottom: 1px solid var(--line);
+  padding-bottom: 1.25rem;
+}
+
+.featured-header-left {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
 }
 
 .featured-games-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
-  gap: 1.75rem;
+  grid-template-columns: repeat(auto-fill, minmax(18rem, 22rem));
+  gap: 1.5rem;
+  justify-content: start;
 }
 
+/* Compact Reusable Game Card */
 .game-card {
   display: flex;
   flex-direction: column;
   background: var(--surface);
   border: 1px solid var(--line);
-  border-radius: var(--radius);
+  border-radius: 1.25rem;
   overflow: hidden;
-  box-shadow: var(--shadow);
-  transition: transform 0.22s ease, box-shadow 0.22s ease, border-color 0.22s ease;
+  box-shadow: 0 4px 18px rgba(35, 25, 75, 0.05);
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
   position: relative;
 }
 
 .game-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 24px 60px rgba(40, 35, 72, 0.15), var(--shadow-glow);
-  border-color: rgba(101, 85, 217, 0.5);
+  transform: translateY(-4px);
+  box-shadow: 0 16px 40px rgba(35, 25, 75, 0.12), var(--shadow-glow);
+  border-color: rgba(101, 85, 217, 0.45);
 }
 
 .game-card-media {
   position: relative;
   width: 100%;
-  height: 14rem;
-  background: linear-gradient(135deg, #2b1464 0%, #4a2890 60%, #1a1b4b 100%);
+  height: 8rem;
+  background: linear-gradient(135deg, #28145e 0%, #472688 65%, #1d1b52 100%);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -416,12 +472,12 @@ h3 {
 }
 
 .game-card-thumb {
-  width: 7.5rem;
-  height: 7.5rem;
-  border-radius: 1.25rem;
+  width: 4.25rem;
+  height: 4.25rem;
+  border-radius: 0.95rem;
   object-fit: cover;
-  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.45);
-  transition: transform 0.3s ease;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+  transition: transform 0.25s ease;
 }
 
 .game-card:hover .game-card-thumb {
@@ -430,55 +486,86 @@ h3 {
 
 .game-badge {
   position: absolute;
-  top: 1rem;
-  right: 1rem;
-  padding: 0.35rem 0.75rem;
-  border-radius: 1rem;
+  top: 0.65rem;
+  left: 0.75rem;
+  padding: 0.25rem 0.65rem;
+  border-radius: 0.65rem;
   background: rgba(16, 20, 48, 0.75);
   border: 1px solid rgba(255, 255, 255, 0.25);
-  backdrop-filter: blur(8px);
+  backdrop-filter: blur(6px);
   color: #fff;
-  font-size: 0.75rem;
-  font-weight: 800;
+  font-size: 0.72rem;
+  letter-spacing: 0.06em;
   text-transform: uppercase;
-  letter-spacing: 0.08em;
+}
+
+.game-status-pill {
+  position: absolute;
+  top: 0.65rem;
+  right: 0.75rem;
+  padding: 0.25rem 0.65rem;
+  border-radius: 0.65rem;
+  background: rgba(0, 210, 211, 0.22);
+  border: 1px solid rgba(0, 210, 211, 0.5);
+  color: #00d2d3;
+  font-size: 0.72rem;
+  font-weight: 750;
+  text-transform: uppercase;
 }
 
 .game-card-body {
-  padding: 1.75rem;
+  padding: 1.25rem;
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  gap: 0.75rem;
   flex-grow: 1;
+}
+
+.game-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 0.5rem;
 }
 
 .game-card-title {
   margin: 0;
-  font-size: 1.6rem;
+  font-size: 1.3rem;
   color: var(--ink);
+}
+
+.game-genre-tag {
+  font-size: 0.75rem;
+  color: var(--muted);
+  white-space: nowrap;
 }
 
 .game-level-tags {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.5rem;
+  gap: 0.4rem;
 }
 
 .tag {
-  padding: 0.28rem 0.65rem;
-  border-radius: 0.5rem;
+  padding: 0.22rem 0.55rem;
+  border-radius: 0.45rem;
   background: var(--lavender);
   color: var(--violet);
-  font-size: 0.78rem;
-  font-weight: 750;
-  letter-spacing: 0.04em;
+  font-size: 0.75rem;
+  letter-spacing: 0.03em;
+}
+
+.tag--ai {
+  background: #fff0eb;
+  color: var(--coral);
 }
 
 .game-card-desc {
   margin: 0;
   color: var(--muted);
-  font-size: 0.95rem;
-  line-height: 1.55;
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  line-height: 1.5;
   flex-grow: 1;
 }
 
@@ -486,51 +573,54 @@ h3 {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 1rem;
-  padding-top: 0.5rem;
+  gap: 0.75rem;
+  padding-top: 0.65rem;
   border-top: 1px solid var(--line);
-}
-
-.game-card-action {
-  font-family: var(--font-display);
-  letter-spacing: 0.03em;
-  padding: 0.75rem 1.4rem;
-  font-size: 0.95rem;
-  text-decoration: none;
 }
 
 .game-meta {
   font-size: 0.8rem;
-  font-weight: 750;
   color: var(--muted);
+}
+
+.game-card-action {
+  font-family: var(--font-primary);
+  font-size: 0.88rem;
+  padding: 0.55rem 1.15rem;
+  border-radius: 0.7rem;
+  text-decoration: none;
 }
 
 .view-all-tray {
   display: flex;
   justify-content: flex-end;
-  margin-top: 1.75rem;
+  margin-top: 2rem;
 }
 
 .view-all-btn {
-  font-family: var(--font-display);
-  letter-spacing: 0.03em;
-  font-size: 0.95rem;
+  font-family: var(--font-primary);
+  font-size: 0.92rem;
   text-decoration: none;
-  padding: 0.75rem 1.5rem;
+  padding: 0.65rem 1.35rem;
 }
 
 /* ==========================================================================
-   ABOUT US SECTION (Two-Column Responsive Layout & Feature Highlights)
+   ABOUT US SECTION (Two-Column Responsive Stage & Balanced Feature Grid)
    ========================================================================== */
 .about-section {
-  padding: 3.5rem 0;
+  margin-block: 1rem 3.5rem;
+  padding: clamp(2rem, 4vw, 3.5rem) clamp(1.5rem, 3.5vw, 2.75rem);
+  background: linear-gradient(145deg, #ffffff 0%, #f6f1ff 100%);
+  border: 1px solid var(--line-translucent);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
   scroll-margin-top: 2rem;
 }
 
 .about-grid {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr);
-  gap: clamp(1.75rem, 4vw, 3.5rem);
+  grid-template-columns: minmax(0, 1.05fr) minmax(0, 1.25fr);
+  gap: clamp(2rem, 4.5vw, 4rem);
   align-items: start;
 }
 
@@ -543,49 +633,52 @@ h3 {
 .about-lead-p {
   margin: 0;
   color: var(--ink);
-  font-size: 1.12rem;
+  font-family: var(--font-body);
+  font-size: 1.15rem;
   line-height: 1.6;
-  font-weight: 600;
 }
 
 .about-mission-p {
   margin: 0;
   color: var(--muted);
+  font-family: var(--font-body);
   font-size: 0.98rem;
   line-height: 1.65;
 }
 
 .about-features-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(14.5rem, 1fr));
+  grid-template-columns: repeat(2, 1fr);
   gap: 1.25rem;
 }
 
 .feature-card {
-  padding: 1.4rem;
+  padding: 1.35rem;
   background: var(--surface);
   border: 1px solid var(--line);
-  border-radius: 1.2rem;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+  border-radius: 1.15rem;
+  box-shadow: 0 4px 18px rgba(35, 25, 75, 0.04);
   display: flex;
   flex-direction: column;
   gap: 0.65rem;
-  transition: transform 0.2s ease, border-color 0.2s ease;
+  min-height: 11rem;
+  transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
 }
 
 .feature-card:hover {
   transform: translateY(-3px);
   border-color: var(--violet);
+  box-shadow: 0 10px 25px rgba(101, 85, 217, 0.12);
 }
 
 .feature-icon-badge {
-  width: 2.75rem;
-  height: 2.75rem;
-  border-radius: 0.8rem;
+  width: 2.6rem;
+  height: 2.6rem;
+  border-radius: 0.75rem;
   background: var(--lavender);
   display: grid;
   place-items: center;
-  font-size: 1.35rem;
+  font-size: 1.25rem;
 }
 
 .feature-title {
@@ -597,6 +690,7 @@ h3 {
 .feature-desc {
   margin: 0;
   color: var(--muted);
+  font-family: var(--font-body);
   font-size: 0.88rem;
   line-height: 1.5;
 }
@@ -606,21 +700,21 @@ h3 {
    ========================================================================== */
 .ad-slot {
   min-height: 104px;
-  margin-block: 1rem 3rem;
+  margin-block: 2rem 2.5rem;
   border: 1px dashed #c8c2db;
   border-radius: 1rem;
-  background: rgba(255, 255, 255, 0.55);
+  background: rgba(255, 255, 255, 0.6);
   display: grid;
   place-items: center;
   color: #858098;
-  font-size: 0.68rem;
+  font-size: 0.7rem;
   text-transform: uppercase;
-  letter-spacing: 0.13em;
+  letter-spacing: 0.14em;
 }
 
 .ad-slot--rectangle {
   min-height: 280px;
-  margin-block: 3.5rem;
+  margin-block: 2.5rem;
 }
 
 /* ==========================================================================
@@ -661,7 +755,7 @@ h3 {
   border-radius: 50%;
   background: var(--lavender);
   color: var(--violet);
-  font-family: var(--font-display);
+  font-family: var(--font-primary);
   font-size: 1.1rem;
 }
 
@@ -670,7 +764,7 @@ h3 {
    ========================================================================== */
 .site-footer {
   padding: 3.5rem 0 3rem;
-  margin-top: 2rem;
+  margin-top: 3rem;
   border-top: 1px solid var(--line);
   display: flex;
   flex-direction: column;
@@ -679,7 +773,7 @@ h3 {
 
 .footer-main-row {
   display: grid;
-  grid-template-columns: 1.5fr 1fr 1fr;
+  grid-template-columns: 1.6fr 1fr 1fr;
   gap: clamp(1.5rem, 3.5vw, 3rem);
 }
 
@@ -692,6 +786,7 @@ h3 {
 .footer-tagline {
   margin: 0;
   color: var(--muted);
+  font-family: var(--font-body);
   font-size: 0.92rem;
   line-height: 1.6;
   max-width: 24rem;
@@ -705,16 +800,15 @@ h3 {
 
 .footer-col-title {
   margin: 0 0 0.5rem;
-  font-family: var(--font-display);
-  font-size: 1rem;
+  font-family: var(--font-primary);
+  font-size: 1.05rem;
   color: var(--ink);
   letter-spacing: 0.04em;
 }
 
 .footer-nav-col a {
   color: var(--muted);
-  font-size: 0.9rem;
-  font-weight: 650;
+  font-size: 0.92rem;
   text-decoration: none;
   transition: color 0.15s ease;
 }
@@ -765,7 +859,7 @@ h3 {
   padding-top: 1.5rem;
   border-top: 1px solid var(--line);
   color: var(--muted);
-  font-size: 0.85rem;
+  font-size: 0.88rem;
 }
 
 .footer-bottom-row p {
@@ -776,10 +870,8 @@ h3 {
   display: flex;
   align-items: center;
   gap: 0.75rem;
-  font-size: 0.78rem;
-  font-weight: 750;
-  text-transform: uppercase;
-  letter-spacing: 0.06em;
+  font-size: 0.8rem;
+  letter-spacing: 0.05em;
 }
 
 /* ==========================================================================
@@ -829,6 +921,9 @@ h3 {
   .about-grid {
     grid-template-columns: 1fr;
   }
+  .about-features-grid {
+    grid-template-columns: 1fr;
+  }
   .footer-main-row {
     grid-template-columns: 1fr;
   }
@@ -841,12 +936,12 @@ h3 {
     align-items: flex-start;
   }
   .site-nav {
-    gap: 0.4rem;
+    gap: 0.35rem;
     flex-wrap: wrap;
   }
   .site-nav a,
   .nav-link {
-    font-size: 0.82rem;
+    font-size: 0.88rem;
     padding: 0.35rem 0.65rem;
   }
   .guide-grid {
@@ -855,12 +950,17 @@ h3 {
   .featured-games-grid {
     grid-template-columns: 1fr;
   }
+  .featured-header-row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
   .ad-slot {
     margin-bottom: 2rem;
   }
   .ad-slot--rectangle {
     min-height: 250px;
-    margin-block: 2.5rem;
+    margin-block: 2rem;
   }
 }
 

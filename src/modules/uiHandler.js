@@ -10,12 +10,24 @@
   const Constants = global.VibeConstants || {};
   const HUMAN = Constants.HUMAN || "X";
   const BOT = Constants.BOT || "O";
-  const SHARE_BACKGROUNDS = Constants.SHARE_BACKGROUNDS || [
-    "assets/images/a.webp",
-    "assets/images/b.webp",
-    "assets/images/c.webp",
-    "assets/images/d.webp"
-  ];
+
+  // Resolve share backgrounds at runtime — prefer base64 globals (CORS-safe) over path strings
+  function resolveShareBackgrounds() {
+    const fromConstants = Constants.SHARE_BACKGROUNDS;
+    if (fromConstants && fromConstants.length) {
+      // Re-resolve: if the global VIBE_BG_* vars are now loaded, replace path strings with data URIs
+      return fromConstants.map((bg, idx) => {
+        const keys = ["A", "B", "C", "D"];
+        return global[`VIBE_BG_${keys[idx]}`] || bg;
+      });
+    }
+    return [
+      global.VIBE_BG_A || "assets/images/a.webp",
+      global.VIBE_BG_B || "assets/images/b.webp",
+      global.VIBE_BG_C || "assets/images/c.webp",
+      global.VIBE_BG_D || "assets/images/d.webp"
+    ];
+  }
 
   const Engine = global.VibeState || {};
   const state = Engine.state;
@@ -320,6 +332,7 @@
     }
 
     openShareModal() {
+      const SHARE_BACKGROUNDS = resolveShareBackgrounds();
       const candidates = SHARE_BACKGROUNDS.filter((img) => img !== state.shareBackground);
       state.shareBackground = candidates[Math.floor(Math.random() * candidates.length)] || SHARE_BACKGROUNDS[0];
 
@@ -384,11 +397,11 @@
 
       context.fillStyle = "#ffdd77";
       context.textAlign = "center";
-      context.font = `800 ${Math.max(12, width * 0.03)}px 'Crackman', system-ui, sans-serif`;
+      context.font = `800 ${Math.max(12, width * 0.03)}px 'Crackman', Impact, 'Arial Black', sans-serif`;
       context.fillText("VIBE GAMES ARENA", width / 2, height * 0.075);
 
       context.fillStyle = "#ffffff";
-      context.font = `800 ${Math.max(24, width * 0.068)}px 'Crackman', system-ui, sans-serif`;
+      context.font = `800 ${Math.max(24, width * 0.068)}px 'Crackman', Impact, 'Arial Black', sans-serif`;
       context.fillText("Match Statistics", width / 2, height * 0.16);
 
       const sideWidth = width * 0.31;
@@ -404,7 +417,7 @@
       context.fill();
 
       context.fillStyle = "white";
-      context.font = `800 ${Math.max(10, width * 0.027)}px system-ui, sans-serif`;
+      context.font = `800 ${Math.max(10, width * 0.027)}px 'Crackman', Impact, 'Arial Black', sans-serif`;
       context.fillText("VS", width / 2, sideY + sideHeight / 2 + 4);
 
       context.fillStyle = "rgba(20,18,83,.62)";
@@ -413,7 +426,7 @@
 
       const drawsText = (this.elements.modalDraws && this.elements.modalDraws.textContent) || "0";
       context.fillStyle = "#ffffff";
-      context.font = `800 ${Math.max(13, width * 0.036)}px system-ui, sans-serif`;
+      context.font = `800 ${Math.max(13, width * 0.036)}px 'Awesome', Inter, system-ui, sans-serif`;
       context.fillText(`DRAWS: ${drawsText}`, width / 2, height * 0.855);
 
       return canvas;
@@ -447,19 +460,19 @@
 
       context.fillStyle = "white";
       context.textAlign = "center";
-      context.font = `900 ${Math.max(22, width * 0.26)}px 'Crackman', system-ui, sans-serif`;
+      context.font = `900 ${Math.max(22, width * 0.26)}px 'Crackman', Impact, 'Arial Black', sans-serif`;
       context.fillText(mark, x + width / 2, y + height * 0.28);
 
       context.fillStyle = "#162033";
-      context.font = `800 ${Math.max(12, width * 0.11)}px system-ui, sans-serif`;
+      context.font = `800 ${Math.max(12, width * 0.11)}px 'Awesome', Inter, system-ui, sans-serif`;
       context.fillText(name.slice(0, 14), x + width / 2, y + height * 0.55);
 
       context.fillStyle = color;
-      context.font = `900 ${Math.max(32, width * 0.34)}px 'Crackman', system-ui, sans-serif`;
+      context.font = `900 ${Math.max(32, width * 0.34)}px 'Crackman', Impact, 'Arial Black', sans-serif`;
       context.fillText(wins, x + width / 2, y + height * 0.78);
 
       context.fillStyle = "#657089";
-      context.font = `700 ${Math.max(9, width * 0.075)}px system-ui, sans-serif`;
+      context.font = `700 ${Math.max(9, width * 0.075)}px 'Awesome', Inter, system-ui, sans-serif`;
       context.fillText("WINS", x + width / 2, y + height * 0.91);
     }
 

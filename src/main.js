@@ -72,7 +72,9 @@
       if (route === "game") {
         this.ui.bindElements();
         this.ui.syncConfiguration();
-        this.ui.refreshCells();
+        // Render board always — ensures cells are visible even before "Start game" is clicked
+        this.ui.renderBoard();
+        this.ui.renderScoreboard();
       } else if (route === "dashboard") {
         this.updateDashboardStats();
       } else if (route === "home" && this.graphics) {

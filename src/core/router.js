@@ -57,7 +57,7 @@
         const href = (link.getAttribute("href") || "").replace(/^#\/?/, "").toLowerCase();
         const isActive =
           href === targetRoute ||
-          (targetRoute === "home" && (href === "home" || href === "")) ||
+          (targetRoute === "home" && (href === "home" || href === "" || href === "featured-games" || href === "about")) ||
           (targetRoute === "game" && (href === "game" || href === "play"));
         link.classList.toggle("is-active", isActive);
       });

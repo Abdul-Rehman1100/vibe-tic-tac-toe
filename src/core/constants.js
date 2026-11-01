@@ -23,11 +23,12 @@
     [1, -1]   // Diagonal Down-Left
   ]);
 
+  // Use base64-embedded backgrounds (CORS-safe on file:///) if available, else path fallback
   const SHARE_BACKGROUNDS = Object.freeze([
-    "assets/images/a.webp",
-    "assets/images/b.webp",
-    "assets/images/c.webp",
-    "assets/images/d.webp"
+    global.VIBE_BG_A || "assets/images/a.webp",
+    global.VIBE_BG_B || "assets/images/b.webp",
+    global.VIBE_BG_C || "assets/images/c.webp",
+    global.VIBE_BG_D || "assets/images/d.webp"
   ]);
 
   const DEFAULT_NAMES = Object.freeze({
